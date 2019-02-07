@@ -1,4 +1,4 @@
-body {
+/* body {
     background-color: aliceblue;
 }
 
@@ -7,7 +7,7 @@ body {
     color: #fdb02e
 }
 
-.hufflepuf {
+.hufflepuff {
     background-color: #ffc02a;
     color: #0b0000  
 }
@@ -20,4 +20,149 @@ body {
 .slytherin {
     background-color: #588c39;
     color: #c0b1c6  
+} */
+
+/* root house colors */
+
+:root {
+  /* house colors */
+  --hufflepuff: rgba(217, 208, 56, 0.25);
+  --gryffindor: rgba(151, 9, 23, 0.3);
+  --slytherin: rgba(44, 124, 27, 0.25);
+  --ravenclaw: rgba(25, 87, 147, 0.25);
+}
+
+/* basic styles */
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.wrapper {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* for each student box */
+
+.student {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  position: relative;
+}
+
+/* .student:nth-child(even) {
+    background-color: rgb(160, 194, 155);
+} */
+
+h1 {
+  font-family: "Shojumaru", cursive;
+}
+
+h2 {
+  font-family: "Copse", serif;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+p {
+  font-style: italic;
+  margin-top: 0;
+}
+
+/* Styles for adding colors and crests to different houses in js */
+
+.hufflepuff {
+  background-color: var(--hufflepuff);
+}
+
+.gryffindor {
+  background-color: var(--gryffindor);
+}
+
+.slytherin {
+  background-color: var(--slytherin);
+}
+
+.ravenclaw {
+  background-color: var(--ravenclaw);
+}
+
+.crest {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+}
+
+#modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  transition: all 1s;
+  /* opacity: 0; */
+  pointer-events: none;
+  z-index: 999;
+}
+
+#modal-content {
+  width: 70vw;
+  height: 70vh;
+  background-color: white;
+  margin: auto;
+}
+
+#modal.vis {
+  /* display: block;*/
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal_portrait {
+  max-width: 6rem;
+}
+
+.modal_crest {
+  max-width: 6rem;
+}
+
+/* media quaries */
+
+@media screen and (min-width: 40rem) {
+  .student {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 6rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .student {
+    grid-template-columns: 1fr 2fr;
+  }
 }
