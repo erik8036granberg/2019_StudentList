@@ -4,7 +4,9 @@ let students;
 let student;
 // output array
 let arrayOfStudents = [];
-let displayFilter = "all";
+let template = document.querySelector("[data-template]");
+let container = document.querySelector("[data-container]");
+let background = document.querySelector("[data-background]");
 
 // prototype "template"
 let studentPrototype = {
@@ -52,30 +54,55 @@ function studentObject() {
         // add object to output array
         arrayOfStudents.push(student);
     });
-
-    filterStudents();
+    displayStudents(arrayOfStudents)
 }
 
-function filterStudents() {
-    console.log("init");
+document.querySelector("#all").addEventListener("click", filterAll);
+document.querySelector("#hufflepuff").addEventListener("click", filterHufflepuff);
+document.querySelector("#gryffindor").addEventListener("click", filterGryffindor);
+document.querySelector("#ravenclaw").addEventListener("click", filterRavenclaw);
+document.querySelector("#slytherin").addEventListener("click", filterSlytherin);
 
-    if (displayFilter === "all") {
-        displayStudents(arrayOfStudents);
-    }
 
-    // let Hufflepuffs = arrayOfStudents.filter(function (student) {
-    //     return student.house === "Hufflepuff";
-    // });
-    // console.log(Hufflepuffs);
-    // displayStudents(Hufflepuffs);
+function filterAll() {
+    container.innerHTML = "";
+    displayStudents(arrayOfStudents);
+}
+
+function filterHufflepuff() {
+    let Hufflepuffs = arrayOfStudents.filter(function (student) {
+        return student.house === "Hufflepuff";
+    });
+    container.innerHTML = "";
+    displayStudents(Hufflepuffs);
+}
+
+function filterGryffindor() {
+    let Gryffindors = arrayOfStudents.filter(function (student) {
+        return student.house === "Gryffindor";
+    });
+    container.innerHTML = "";
+    displayStudents(Gryffindors);
+}
+
+function filterRavenclaw() {
+    let Ravenclaws = arrayOfStudents.filter(function (student) {
+        return student.house === "Ravenclaw";
+    });
+    container.innerHTML = "";
+    displayStudents(Ravenclaws);
+}
+
+function filterSlytherin() {
+    let Slytherins = arrayOfStudents.filter(function (student) {
+        return student.house === "Slytherin";
+    });
+    container.innerHTML = "";
+    displayStudents(Slytherins);
 }
 
 function displayStudents(inputArray) {
     console.log("displayList");
-
-    let template = document.querySelector("[data-template]");
-    let container = document.querySelector("[data-container]");
-    let background = document.querySelector("[data-background]");
 
     //	loop
     inputArray.forEach(student => {
@@ -101,3 +128,9 @@ function displayStudents(inputArray) {
         console.log("Student added");
     });
 }
+
+// let Hufflepuffs = arrayOfStudents.filter(function (student) {
+//     return student.house === "Hufflepuff";
+// });
+// console.log(Hufflepuffs);
+// displayStudents(Hufflepuffs);
