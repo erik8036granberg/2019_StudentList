@@ -38,7 +38,6 @@ window.addEventListener("DOMContentLoaded", init);
 function init() {
     console.log("init");
     getJson();
-    // document.querySelector("Hufflepuff").addEventListener("click", filterButton);
 }
 
 //	get json
@@ -90,16 +89,11 @@ function filterStudents(houseFilter) {
     if (houseFilter === "All") {
         displayStudents(arrayOfStudents);
     } else {
-        filteredArray = filterStudentsArray(houseFilter)
+        filteredArray = arrayOfStudents.filter(function (student) {
+            return student.house === houseFilter;
+        });
         displayStudents(filteredArray);
     }
-}
-
-function filterStudentsArray(houseFilter) {
-    filteredArray = arrayOfStudents.filter(function (student) {
-        return student.house === houseFilter;
-    });
-    return filteredArray;
 }
 
 function displayStudents(inputArray) {
