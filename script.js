@@ -1,8 +1,7 @@
 "use strict";
 
-let students;
-let student;
 const arrayOfStudents = [];
+let arrayOfExpelled = [];
 let activeArray;
 let houseFilter = "All";
 let sortBy = "None";
@@ -32,13 +31,12 @@ function init() {
 
 //	get json
 async function getJson() {
-  let Json = await fetch("students.json");
-  students = await Json.json();
-  console.log(students);
-  studentObject();
+  let Json = await fetch("http://petlatkea.dk/2019/hogwarts/students.json");
+  let students = await Json.json();
+  studentObject(students);
 }
 
-function studentObject() {
+function studentObject(students) {
   // prototype "template"
   const studentPrototype = {
     fullName: "-student name-",
@@ -46,25 +44,41 @@ function studentObject() {
     middleName: "-student middlename-",
     lastName: "-student firstname-",
     house: "-student house-",
+    crest: "-house crest-",
+    image: "-image-",
+    expelled: "-expelled-",
+    blooodstatus: "-blooodstatus-",
+    inquisitorialSquad: "-inquisitorialSquad-",
+    id: "-student iD-",
 
     setJSONdata(studentData) {
       const firstSpace = studentData.fullname.indexOf(" ");
       const lastSpace = studentData.fullname.lastIndexOf(" ");
+      const id = makeId(this.fullName);
 
       this.fullName = studentData.fullname;
       this.firstName = studentData.fullname.substring(0, firstSpace);
-      this.middleName = studentData.fullname.substring(
-        firstSpace + 1,
-        lastSpace
-      );
+      this.middleName =
+        " " + studentData.fullname.substring(firstSpace + 1, lastSpace) + " ";
       this.lastName = studentData.fullname.substring(lastSpace + 1);
       this.house = studentData.house;
+      this.crest = "img/" + this.house.toLowerCase() + ".jpg";
+      this.image =
+        "images/" +
+        this.firstName.toLowerCase() +
+        "_" +
+        this.lastName.substring(0, 1).toLowerCase() +
+        ".jpg";
+      this.expelled = false;
+      this.blooodstatus = "?";
+      this.inquisitorialSquad = false;
+      this.id = id;
     }
   };
 
   students.forEach(studentData => {
     // create, clone and add studentObject
-    student = Object.create(studentPrototype);
+    const student = Object.create(studentPrototype);
     student.setJSONdata(studentData);
     arrayOfStudents.push(student);
   });
@@ -177,10 +191,11 @@ function displayStudents() {
     //	crest to lowercase for correct names
     let house_low = student.house;
     house_low = house_low.toLowerCase();
-    console.log("house_low er: " + house_low);
 
     //	insert data into template fields & add background color + crest picture
-    clone.querySelector("[data-fullname]").textContent = student.fullName;
+    clone.querySelector("[data-firstname]").textContent = student.firstName;
+    clone.querySelector("[data-middlename]").textContent = student.middleName;
+    clone.querySelector("[data-lastname]").textContent = student.lastName;
     clone.querySelector("[data-house]").textContent = student.house;
     clone.querySelector("[data-img]").setAttribute("alt", student.house);
     clone
@@ -195,3 +210,12 @@ function displayStudents() {
 
 // Toto: remove expeled student from list
 // Put expeled student to "expelled" list
+
+function makeId(student) {
+  let input = "Harry Potter";
+  let output = "";
+  for (let i = 0; i < input.length; i++) {
+    output += input[i].charCodeAt(0);
+  }
+  return output.substring(0, 7);
+}
