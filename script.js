@@ -6,37 +6,15 @@ let arrayOfStudents = [];
 let filteredArray;
 let houseFilter = "All";
 
-document.querySelector("#all").addEventListener("click", filterAll);
-document.querySelector("#hufflepuff").addEventListener("click", filterHufflepuff);
-document.querySelector("#gryffindor").addEventListener("click", filterGryffindor);
-document.querySelector("#ravenclaw").addEventListener("click", filterRavenclaw);
-document.querySelector("#slytherin").addEventListener("click", filterSlytherin);
-
-// prototype "template"
-let studentPrototype = {
-    fullName: "-student name-",
-    firstName: "-student firstname-",
-    middleName: "-student middlename-",
-    lastName: "-student firstname-",
-    house: "-student house-",
-
-
-    setJSONdata(studentData) {
-        const firstSpace = studentData.fullname.indexOf(" ");
-        const lastSpace = studentData.fullname.lastIndexOf(" ");
-
-        this.fullName = studentData.fullname;
-        this.firstName = studentData.fullname.substring(0, firstSpace);
-        this.middleName = studentData.fullname.substring(firstSpace + 1, lastSpace);
-        this.lastName = studentData.fullname.substring(lastSpace + 1);
-        this.house = studentData.house;
-    }
-};
-
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
     console.log("init");
+    document.querySelector("#all").addEventListener("click", filterAll);
+    document.querySelector("#hufflepuff").addEventListener("click", filterHufflepuff);
+    document.querySelector("#gryffindor").addEventListener("click", filterGryffindor);
+    document.querySelector("#ravenclaw").addEventListener("click", filterRavenclaw);
+    document.querySelector("#slytherin").addEventListener("click", filterSlytherin);
     getJson();
 }
 
@@ -49,12 +27,30 @@ async function getJson() {
 }
 
 function studentObject() {
+    // prototype "template"
+    let studentPrototype = {
+        fullName: "-student name-",
+        firstName: "-student firstname-",
+        middleName: "-student middlename-",
+        lastName: "-student firstname-",
+        house: "-student house-",
+
+        setJSONdata(studentData) {
+            const firstSpace = studentData.fullname.indexOf(" ");
+            const lastSpace = studentData.fullname.lastIndexOf(" ");
+
+            this.fullName = studentData.fullname;
+            this.firstName = studentData.fullname.substring(0, firstSpace);
+            this.middleName = studentData.fullname.substring(firstSpace + 1, lastSpace);
+            this.lastName = studentData.fullname.substring(lastSpace + 1);
+            this.house = studentData.house;
+        }
+    };
+
     students.forEach(studentData => {
-        // create new object via prototype
+        // create, clone and add studentObject
         student = Object.create(studentPrototype);
-        // "clone" data from each object
         student.setJSONdata(studentData);
-        // add object to output array
         arrayOfStudents.push(student);
     });
     filterStudents(houseFilter);
@@ -62,7 +58,7 @@ function studentObject() {
 
 function filterAll() {
     houseFilter = "All";
-    displayStudents(arrayOfStudents);
+    filterStudents(houseFilter);
 }
 
 function filterHufflepuff() {
@@ -87,13 +83,39 @@ function filterSlytherin() {
 
 function filterStudents(houseFilter) {
     if (houseFilter === "All") {
-        displayStudents(arrayOfStudents);
+        sortStudents(arrayOfStudents);
     } else {
         filteredArray = arrayOfStudents.filter(function (student) {
             return student.house === houseFilter;
         });
-        displayStudents(filteredArray);
+        sortStudents(filteredArray);
     }
+}
+
+function sortStudents(inputArray) {
+    // todo - fix buttons/functions for sort
+
+    //	sort by firstName
+    inputArray.sort(function (a, z) {
+        return a.firstName.localeCompare(z.firstName);
+    });
+
+    //	sort by middleName
+    inputArray.sort(function (a, z) {
+        return a.middleName.localeCompare(z.middleName);
+    });
+
+    //	sort by lastName
+    inputArray.sort(function (a, z) {
+        return a.lastName.localeCompare(z.lastName);
+    });
+
+    //	sort by house
+    inputArray.sort(function (a, z) {
+        return a.house.localeCompare(z.house);
+    });
+
+    displayStudents(inputArray);
 }
 
 function displayStudents(inputArray) {
@@ -108,9 +130,7 @@ function displayStudents(inputArray) {
     //	loop
     inputArray.forEach(student => {
         console.log(student);
-
-        //	Klon? please do
-        let klon = template.cloneNode(true).content;
+        let clone = template.content.cloneNode(true);
 
         //	crest to lowercase for correct names
         let house_low = student.house;
@@ -118,14 +138,13 @@ function displayStudents(inputArray) {
         console.log("house_low er: " + house_low);
 
         //	insert data into template fields & add background color + crest picture
-        klon.querySelector("[data-fullname]").textContent = student.fullName;
-        klon.querySelector("[data-house]").textContent = student.house;
-        klon.querySelector("[data-img]").setAttribute("alt", student.house);
-        klon.querySelector("[data-img]").setAttribute("src", "img/" + house_low + ".jpg");
-        klon.querySelector(".background").classList.add(house_low);
+        clone.querySelector("[data-fullname]").textContent = student.fullName;
+        clone.querySelector("[data-house]").textContent = student.house;
+        clone.querySelector("[data-img]").setAttribute("alt", student.house);
+        clone.querySelector("[data-img]").setAttribute("src", "img/" + house_low + ".jpg");
+        clone.querySelector(".background").classList.add(house_low);
 
         //	add student to DOM
-        container.appendChild(klon);
-        console.log("Student added");
+        container.appendChild(clone);
     });
 }
