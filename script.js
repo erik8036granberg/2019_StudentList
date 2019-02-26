@@ -116,7 +116,7 @@ function filterStudents(houseFilter) {
   if (houseFilter === "All") {
     sortStudents(arrayOfStudents);
   } else {
-    activeArray = arrayOfStudents.filter(function(student) {
+    activeArray = arrayOfStudents.filter(function (student) {
       return student.house === houseFilter;
     });
     sortStudents();
@@ -143,7 +143,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "firstName") {
-    activeArray.sort(function(a, z) {
+    activeArray.sort(function (a, z) {
       if (a.firstName < z.firstName) {
         return -1;
       } else {
@@ -153,7 +153,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "lastName") {
-    activeArray.sort(function(a, z) {
+    activeArray.sort(function (a, z) {
       if (a.lastName < z.lastName) {
         return -1;
       } else {
@@ -163,7 +163,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "house") {
-    activeArray.sort(function(a, z) {
+    activeArray.sort(function (a, z) {
       if (a.house < z.house) {
         return -1;
       } else {
