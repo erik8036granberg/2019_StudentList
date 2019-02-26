@@ -3,8 +3,9 @@
 let students;
 let student;
 let arrayOfStudents = [];
-let filteredArray;
+let activeArray;
 let houseFilter = "All";
+let sortBy = "None";
 
 window.addEventListener("DOMContentLoaded", init);
 
@@ -15,6 +16,10 @@ function init() {
     document.querySelector("#gryffindor").addEventListener("click", filterGryffindor);
     document.querySelector("#ravenclaw").addEventListener("click", filterRavenclaw);
     document.querySelector("#slytherin").addEventListener("click", filterSlytherin);
+    document.querySelector("#firstname").addEventListener("click", sortFirstName);
+    document.querySelector("#middlename").addEventListener("click", sortMiddleName);
+    document.querySelector("#lastname").addEventListener("click", sortLastName);
+    document.querySelector("#resetsort").addEventListener("click", resetSort);
     getJson();
 }
 
@@ -53,11 +58,13 @@ function studentObject() {
         student.setJSONdata(studentData);
         arrayOfStudents.push(student);
     });
+    activeArray = arrayOfStudents;
     filterStudents(houseFilter);
 }
 
 function filterAll() {
     houseFilter = "All";
+    activeArray = arrayOfStudents;
     filterStudents(houseFilter);
 }
 
@@ -85,40 +92,77 @@ function filterStudents(houseFilter) {
     if (houseFilter === "All") {
         sortStudents(arrayOfStudents);
     } else {
-        filteredArray = arrayOfStudents.filter(function (student) {
+        activeArray = arrayOfStudents.filter(function (student) {
             return student.house === houseFilter;
         });
-        sortStudents(filteredArray);
+        sortStudents();
     }
 }
 
-function sortStudents(inputArray) {
-    // todo - fix buttons/functions for sort
-
-    //	sort by firstName
-    inputArray.sort(function (a, z) {
-        return a.firstName.localeCompare(z.firstName);
-    });
-
-    //	sort by middleName
-    inputArray.sort(function (a, z) {
-        return a.middleName.localeCompare(z.middleName);
-    });
-
-    //	sort by lastName
-    inputArray.sort(function (a, z) {
-        return a.lastName.localeCompare(z.lastName);
-    });
-
-    //	sort by house
-    inputArray.sort(function (a, z) {
-        return a.house.localeCompare(z.house);
-    });
-
-    displayStudents(inputArray);
+function sortFirstName() {
+    sortBy = "firstName";
+    sortStudents();
 }
 
-function displayStudents(inputArray) {
+function sortMiddleName() {
+    sortBy = "middleName";
+    sortStudents();
+}
+
+function sortLastName() {
+    sortBy = "lastName";
+    sortStudents();
+}
+
+function sortHouse() {
+    sortBy = "house";
+    sortStudents();
+}
+
+function resetSort() {
+    sortBy = "None";
+    sortStudents();
+}
+
+function sortStudents() {
+    if (sortBy === "None") {
+        displayStudents();
+    }
+    if (sortBy === "firstName") {
+        activeArray.sort(function (a, z) {
+            return a.firstName.localeCompare(z.firstName);
+        });
+        displayStudents();
+    }
+    if (sortBy === "middleName") {
+        activeArray.sort(function (a, z) {
+            return a.middleName.localeCompare(z.middleName);
+        });
+        displayStudents();
+    }
+    if (sortBy === "lastName") {
+        activeArray.sort(function (a, z) {
+            return a.lastName.localeCompare(z.lastName);
+        });
+        displayStudents();
+    }
+    if (sortBy === "house") {
+        activeArray.sort(function (a, z) {
+            return a.house.localeCompare(z.house);
+        });
+        displayStudents();
+    }
+}
+//	sort by firstName
+// inputArray.sort(function (a, z) {
+//     if (a.firstName < z.firstName) {
+//         return -1;
+//     } else {
+//         return 1;
+//     }
+// });
+
+function displayStudents() {
     console.log("displayList");
 
     let template = document.querySelector("[data-template]");
@@ -128,7 +172,7 @@ function displayStudents(inputArray) {
     container.innerHTML = "";
 
     //	loop
-    inputArray.forEach(student => {
+    activeArray.forEach(student => {
         console.log(student);
         let clone = template.content.cloneNode(true);
 
