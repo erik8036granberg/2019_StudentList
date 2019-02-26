@@ -19,7 +19,7 @@ function init() {
     document.querySelector("#firstname").addEventListener("click", sortFirstName);
     document.querySelector("#middlename").addEventListener("click", sortMiddleName);
     document.querySelector("#lastname").addEventListener("click", sortLastName);
-    document.querySelector("#resetsort").addEventListener("click", resetSort);
+    document.querySelector("#house").addEventListener("click", sortHouse);
     getJson();
 }
 
@@ -119,41 +119,53 @@ function sortHouse() {
     sortStudents();
 }
 
-function resetSort() {
-    sortBy = "None";
-    sortStudents();
-}
-
 function sortStudents() {
     if (sortBy === "None") {
         displayStudents();
     }
     if (sortBy === "firstName") {
         activeArray.sort(function (a, z) {
-            return a.firstName.localeCompare(z.firstName);
+            if (a.firstName < z.firstName) {
+                return -1;
+            } else {
+                return 1;
+            }
         });
         displayStudents();
     }
     if (sortBy === "middleName") {
         activeArray.sort(function (a, z) {
-            return a.middleName.localeCompare(z.middleName);
+            if (a.middletName < z.middleName) {
+                return -1;
+            } else {
+                return 1;
+            }
         });
         displayStudents();
     }
     if (sortBy === "lastName") {
         activeArray.sort(function (a, z) {
-            return a.lastName.localeCompare(z.lastName);
+            if (a.lastName < z.lastName) {
+                return -1;
+            } else {
+                return 1;
+            }
         });
         displayStudents();
     }
     if (sortBy === "house") {
         activeArray.sort(function (a, z) {
-            return a.house.localeCompare(z.house);
+            if (a.house < z.house) {
+                return -1;
+            } else {
+                return 1;
+            }
         });
         displayStudents();
     }
 }
-//	sort by firstName
+
+// sort by firstName
 // inputArray.sort(function (a, z) {
 //     if (a.firstName < z.firstName) {
 //         return -1;
