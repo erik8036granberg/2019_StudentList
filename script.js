@@ -101,6 +101,17 @@ function makeId(input) {
   return idMade.substring(0, 7);
 }
 
+function expelStudent(badStudentId) {
+  alert(badStudentId);
+  //add unique id to students
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id == badStudentId);
+  arrayOfStudents[objIndex].expelled = true;
+  console.log(arrayOfStudents);
+
+  activeArray = arrayOfStudents;
+  filterStudents(houseFilter);
+}
+
 function filterAll() {
   houseFilter = "All";
   activeArray = arrayOfStudents;
@@ -195,19 +206,19 @@ function displayStudents() {
   const template = document.querySelector("[data-template]");
   const container = document.querySelector("[data-container]");
   const background = document.querySelector("[data-background]");
-
   container.innerHTML = "";
 
-  //	loop
   activeArray.forEach(student => {
     console.log(student);
     let clone = template.content.cloneNode(true);
 
-    //	crest to lowercase for correct names
     let house_low = student.house;
     house_low = house_low.toLowerCase();
 
-    //	insert data into template fields & add background color + crest picture
+    if (student.expelled === true) {
+      clone.querySelector("[data-expel]").classList.add("hide");
+    }
+
     clone.querySelector("[data-id]").textContent = student.id;
     clone.querySelector("[data-firstname]").textContent = student.firstName;
     clone.querySelector("[data-middlename]").textContent = student.middleName;
@@ -219,7 +230,10 @@ function displayStudents() {
       .setAttribute("src", "img/" + house_low + ".jpg");
     clone.querySelector(".background").classList.add(house_low);
 
-    //	add student to DOM
+    clone.querySelector(".expel").addEventListener("click", () => {
+      expelStudent(student.id);
+    });
+
     container.appendChild(clone);
   });
 }

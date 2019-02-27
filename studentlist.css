@@ -88,7 +88,10 @@ button {
   height: auto;
 }
 
-
+.hide {
+  opasity: 0;
+  transition: 2s;
+}
 
 /* Styles for adding colors and crests to different houses in js */
 
