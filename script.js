@@ -64,6 +64,8 @@ function init() {
   document.querySelector("#lastname").addEventListener("click", sortLastName);
   document.querySelector("#house").addEventListener("click", sortHouse);
   getJson();
+
+  document.querySelector("#expelled").addEventListener("click", expelledButton);
 }
 
 //	get json
@@ -208,6 +210,11 @@ function sortStudents() {
   }
 }
 
+function expelledButton() {
+  activeArray = arrayOfExpelled;
+  displayStudents();
+}
+
 function displayStudents() {
   console.log("displayList");
 
@@ -234,13 +241,48 @@ function displayStudents() {
       .setAttribute("src", "img/" + house_low + ".jpg");
     clone.querySelector(".background").classList.add(house_low);
 
-    clone.querySelector(".expel").addEventListener("click", () => {
-      expelStudent(student.id);
-    });
+    if (student.expelled === false) {
+      clone.querySelector(".expel").addEventListener("click", () => {
+        expelStudent(student.id);
+      });
+    } else {
+      clone.querySelector(".expel").remove();
+    }
 
     container.appendChild(clone);
   });
+  countStudents();
 }
 
-// Toto: remove expeled student from list
-// Put expeled student to "expelled" list
+function countStudents() {
+  const countAll = arrayOfStudents.length;
+  document.querySelector("#student_counter").textContent = countAll;
+
+  const hufflepuffArray = arrayOfStudents.filter(function(el) {
+    return el.house === "Hufflepuff";
+  });
+  document.querySelector("#hufflepuff_counter").textContent =
+    hufflepuffArray.length;
+
+  const gryffindorArray = arrayOfStudents.filter(function(el) {
+    return el.house === "Gryffindor";
+  });
+  document.querySelector("#gryffindor_counter").textContent =
+    gryffindorArray.length;
+
+  const ravenclawArray = arrayOfStudents.filter(function(el) {
+    return el.house === "Ravenclaw";
+  });
+
+  document.querySelector("#ravenclaw_counter").textContent =
+    ravenclawArray.length;
+
+  const slytherinArray = arrayOfStudents.filter(function(el) {
+    return el.house === "Slytherin";
+  });
+  document.querySelector("#slytherin_counter").textContent =
+    slytherinArray.length;
+
+  const countExpelled = arrayOfExpelled.length;
+  document.querySelector("#expelled_counter").textContent = countExpelled;
+}

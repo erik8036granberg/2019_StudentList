@@ -106,6 +106,35 @@ button {
   background-color: var(--ravenclaw);
 }
 
+#student_counter {
+  margin: 2rem 0 0 0;
+}
+
+
+#student_counter::before {
+  content: "Enrolled students: ";
+}
+
+#hufflepuff_counter::before {
+  content: "Hufflepuff: ";
+}
+
+#gryffindor_counter::before {
+  content: "Gryffindor: ";
+}
+
+#ravenclaw_counter::before {
+  content: "Ravenclaw: ";
+}
+
+#slytherin_counter::before {
+  content: "Slytherin: ";
+}
+
+#expelled_counter::before {
+  content: "Expelled students: ";
+}
+
 .crest {
   width: 4rem;
   height: 4rem;
