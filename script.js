@@ -80,19 +80,20 @@ function studentObject(students) {
     student.setJSONdata(studentData);
     arrayOfStudents.push(student);
   });
+  addIdToStudents();
+}
 
+function addIdToStudents() {
   //add unique id to students
   arrayOfStudents.forEach(student => {
     const idMade = makeId(student.fullName);
-    console.log(idMade);
     student.id = idMade;
   });
   activeArray = arrayOfStudents;
   filterStudents(houseFilter);
 }
 
-function makeId(name) {
-  const input = name;
+function makeId(input) {
   let idMade = "";
   for (let i = 0; i < input.length; i++) {
     idMade += input[i].charCodeAt(0);
