@@ -2,6 +2,26 @@
     background-color: aliceblue;
 }
 
+.gryffindor {
+    background-color: #ce3a0a;
+    color: #fdb02e
+}
+
+.hufflepuff {
+    background-color: #ffc02a;
+    color: #0b0000  
+}
+
+.ravenclaw {
+    background-color: #395f9d;
+    color: #e9ba36  
+}
+
+.slytherin {
+    background-color: #588c39;
+    color: #c0b1c6  
+} */
+
 /* root house colors */
 
 :root {
@@ -22,60 +42,25 @@ img {
   width: 100%;
 }
 
-html,
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-}
-
-.bg_image {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 120%;
-  height: 120%;
-  background-image: url(img/harry-potter-bg.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transform: scaleX(-1);
+  position: relative;
 }
 
 .wrapper {
-  position: absolute;
-  width: 80vw;
-  height: 80vh;
-  top: 250px;
-  left: 30%;
-  z-index: 10;
-}
-
-.bg_book {
-  position: fixed;
-  width: 80vw;
-  height: 80vh;
-  background-image: url(img/book.png);
-  background-size: cover;
-  background-position: -2vw -1vw;
-  background-repeat: no-repeat;
-  z-index: -1;
-}
-
-
-nav {
-  display: none;
-}
-
-.wrapper {
-  display: block;
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 /* for each student box */
 
 .student {
-  display: block;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  position: relative;
 }
 
 /* .student:nth-child(even) {
@@ -157,4 +142,61 @@ button {
   position: absolute;
   top: 1rem;
   right: 1.25rem;
+}
+
+#modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  transition: all 1s;
+  /* opacity: 0; */
+  pointer-events: none;
+  z-index: 999;
+}
+
+#modal-content {
+  width: 70vw;
+  height: 70vh;
+  background-color: white;
+  margin: auto;
+}
+
+#modal.vis {
+  /* display: block;*/
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal_portrait {
+  max-width: 6rem;
+}
+
+.modal_crest {
+  max-width: 6rem;
+}
+
+/* media quaries */
+
+@media screen and (min-width: 40rem) {
+  .student {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 6rem;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .student {
+    grid-template-columns: 1fr 2fr;
+  }
 }

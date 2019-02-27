@@ -235,6 +235,19 @@ function displayStudents() {
     clone.querySelector("[data-middlename]").textContent = student.middleName;
     clone.querySelector("[data-lastname]").textContent = student.lastName;
     clone.querySelector("[data-house]").textContent = student.house;
+    clone.querySelector("[data-img]").setAttribute("alt", student.house);
+    clone
+      .querySelector("[data-img]")
+      .setAttribute("src", "img/" + house_low + ".jpg");
+    clone.querySelector(".background").classList.add(house_low);
+
+    if (student.expelled === false) {
+      clone.querySelector(".expel").addEventListener("click", () => {
+        expelStudent(student.id);
+      });
+    } else {
+      clone.querySelector(".expel").remove();
+    }
 
     container.appendChild(clone);
   });
