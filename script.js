@@ -70,7 +70,7 @@ function init() {
 
 //	get json
 async function getJson() {
-  let Json = await fetch("http://petlatkea.dk/2019/hogwarts/students.json");
+  let Json = await fetch("students.json");
   let students = await Json.json();
   studentObject(students);
 }
