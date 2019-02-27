@@ -102,16 +102,19 @@ function makeId(input) {
 }
 
 function expelStudent(badStudentId) {
-  alert(badStudentId);
-  //add unique id to students
+  //set expel-status to true
   let objIndex = arrayOfStudents.findIndex(obj => obj.id == badStudentId);
   arrayOfStudents[objIndex].expelled = true;
-  console.log(arrayOfStudents);
 
+  let expelledStudent = arrayOfStudents[objIndex];
+  arrayOfExpelled.push(expelledStudent);
+
+  console.log(arrayOfExpelled);
+
+  //remove student from display
   arrayOfStudents = arrayOfStudents.filter(function(el) {
     return el.expelled === false;
   });
-
   activeArray = arrayOfStudents;
   filterStudents(houseFilter);
 }
