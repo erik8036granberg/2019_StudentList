@@ -9,15 +9,15 @@
   <link rel="stylesheet" href="studentlist.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Shojumaru" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Copse" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Viga" rel="stylesheet">
 </head>
 
 <body>
   <div class="bg_image"></div>
   <div class="wrapper">
-    <div class="bg_book"></div>
 
     <h1>Students 1991</h1>
-    <div data-container></div>
+    <div class="container" data-container></div>
     <br><br>Viciously committed by Erik Granberg
   </div>
   <nav>
@@ -48,13 +48,18 @@
   </nav>
 
   <template data-template>
-    <div class="student background">
-      <div class="student_name"><span data-firstname></span><span data-middlename></span><span data-lastname></span> -
-        <span data-id></span></div>
-      <p data-house></p>
-      <img src="" alt="" class="crest" data-img>
-      <button class="expel">Expel</button>
+    <div class="student">
+      <div class="student_name">
+        <h2><span data-firstname></span><span data-middlename></span><span data-lastname></span></h2>
+        <p class="house" data-house></p>
+      </div>
+      <div class="expel">Expel</div>
     </div>
+
+    <!-- <img src="" alt="" class="crest" data-img> -->
+
+    </div>
+
   </template>
 
   <!-- <div id="modal">

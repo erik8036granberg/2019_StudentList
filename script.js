@@ -227,14 +227,18 @@ function displayStudents() {
     console.log(student);
     let clone = template.content.cloneNode(true);
 
-    let house_low = student.house;
-    house_low = house_low.toLowerCase();
-
-    clone.querySelector("[data-id]").textContent = student.id;
     clone.querySelector("[data-firstname]").textContent = student.firstName;
     clone.querySelector("[data-middlename]").textContent = student.middleName;
     clone.querySelector("[data-lastname]").textContent = student.lastName;
     clone.querySelector("[data-house]").textContent = student.house;
+
+    if (student.expelled === false) {
+      clone.querySelector(".expel").addEventListener("click", () => {
+        expelStudent(student.id);
+      });
+    } else {
+      clone.querySelector(".expel").remove();
+    }
 
     container.appendChild(clone);
   });

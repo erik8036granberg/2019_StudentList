@@ -10,6 +10,9 @@
   --gryffindor: rgba(151, 9, 23, 0.3);
   --slytherin: rgba(44, 124, 27, 0.25);
   --ravenclaw: rgba(25, 87, 147, 0.25);
+  --background: rgba(0, 0, 0, 0.9);
+  --font-blue: rgba(0, 150, 180, 1);
+  --font-blue_hover: rgba(0, 150, 180, 0.5);
 }
 
 /* basic styles */
@@ -27,6 +30,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  color: #ffffff;
 }
 
 .bg_image {
@@ -45,50 +49,36 @@ body {
 
 .wrapper {
   position: absolute;
-  width: 80vw;
-  height: 80vh;
-  top: 250px;
-  left: 30%;
+  top: 0;
+  right: 0;
+  width: 40vw;
   z-index: 10;
+  background-color: var(--background);
+  padding: 4vw 4vw 4vw 7vw;
 }
-
-.bg_book {
-  position: fixed;
-  width: 80vw;
-  height: 80vh;
-  background-image: url(img/book.png);
-  background-size: cover;
-  background-position: -2vw -1vw;
-  background-repeat: no-repeat;
-  z-index: -1;
-}
-
 
 nav {
   display: none;
 }
 
-.wrapper {
-  display: block;
-}
+.wrapper {}
 
 /* for each student box */
 
-.student {
-  display: block;
-}
+.student {}
 
 /* .student:nth-child(even) {
     background-color: rgb(160, 194, 155);
 } */
 
 h1 {
-  font-family: "Shojumaru", cursive;
+  font-family: 'Viga', sans-serif;
+  font-size: 3rem;
 }
 
 h2 {
   font-family: "Copse", serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0;
 }
@@ -101,6 +91,19 @@ p {
 button {
   width: auto;
   height: auto;
+}
+
+.student {}
+
+.student {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.house {
+  color: var(--font-blue);
+  font-size: 1.75rem;
 }
 
 /* Styles for adding colors and crests to different houses in js */
@@ -124,7 +127,6 @@ button {
 #student_counter {
   margin: 2rem 0 0 0;
 }
-
 
 #student_counter::before {
   content: "Enrolled students: ";
@@ -157,4 +159,17 @@ button {
   position: absolute;
   top: 1rem;
   right: 1.25rem;
+}
+
+.expel {
+  position: relative;
+  background-color: var(--font-blue);
+  margin: auto;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: 0.5s;
+}
+
+.expel:hover {
+  background-color: var(--font-blue_hover);
 }
