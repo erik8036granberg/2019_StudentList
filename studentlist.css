@@ -52,16 +52,43 @@ body {
   top: 0;
   right: 0;
   width: 40vw;
+  min-height: 100vw;
   z-index: 10;
   background-color: var(--background);
-  padding: 4vw 4vw 4vw 7vw;
+  padding: 2vw 2vw 0vw 2vw;
 }
+
 
 nav {
-  display: none;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
 }
 
-.wrapper {}
+nav ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+nav li {
+  display: inline-block;
+  background-color: var(--font-blue);
+  margin: auto;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: 0.5s;
+  margin: 0 0.5rem 0 0;
+}
+
+nav li:hover {
+  background-color: var(--font-blue_hover);
+  cursor: pointer;
+}
+
+.content {
+  padding: 0vw 3vw 3vw 5vw;
+}
+
+
 
 /* for each student box */
 
@@ -73,7 +100,12 @@ nav {
 
 h1 {
   font-family: 'Viga', sans-serif;
-  font-size: 3rem;
+  font-size: 5rem;
+  position: absolute;
+  text-align: center;
+  width: 60vw;
+  top: 35vh;
+  left: 0vw;
 }
 
 h2 {
@@ -88,12 +120,13 @@ p {
   margin-top: 0;
 }
 
-button {
-  width: auto;
-  height: auto;
+.info {
+  position: absolute;
+  top: 0;
+  left: 50vw;
+  z-index: 50;
+  text-align: right;
 }
-
-.student {}
 
 .student {
   margin: 0;
@@ -172,4 +205,5 @@ button {
 
 .expel:hover {
   background-color: var(--font-blue_hover);
+  cursor: pointer;
 }

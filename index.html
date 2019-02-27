@@ -14,38 +14,47 @@
 
 <body>
   <div class="bg_image"></div>
-  <div class="wrapper">
-
-    <h1>Students 1991</h1>
-    <div class="container" data-container></div>
-    <br><br>Viciously committed by Erik Granberg
-  </div>
-  <nav>
-    <div>Filter by:
-      <button id="all">All</button>
-      <button id="hufflepuff">Hufflepuff</button>
-      <button id="gryffindor">Gryffindor</button>
-      <button id="ravenclaw">Ravenclaw</button>
-      <button id="slytherin">Slytherin</button>
-    </div>
-    <div>
-      Sort by:
-      <button id="firstname">Firstname</button>
-      <button id="lastname">Lastname</button>
-      <button id="house">House</button>
-    </div>
-    <div>
-      Student status:
-      <button id="expelled">Expelled</button>
-    </div>
-
+  <h1>Students 1991</h1>
+  <div class="info">
     <div id="student_counter"></div>
     <div id="hufflepuff_counter"></div>
     <div id="gryffindor_counter"></div>
     <div id="ravenclaw_counter"></div>
     <div id="slytherin_counter"></div>
     <div id="expelled_counter"></div>
-  </nav>
+  </div>
+  <div class="wrapper">
+    <nav>
+      <div class="nav_holder">Filter by:
+        <ul>
+          <li id="all">All</button>
+          <li id="hufflepuff">Hufflepuff</li>
+          <li id="gryffindor">Gryffindor</li>
+          <li id="ravenclaw">Ravenclaw</li>
+          <li id="slytherin">Slytherin</li>
+        </ul>
+      </div>
+      <div class="nav_holder">
+        Student status:
+        <ul>
+          <li id="expelled">Expelled</li>
+        </ul>
+      </div>
+      <div class="nav_holder">
+        Sort by:
+        <ul>
+          <li id="firstname">Firstname</li>
+          <li id="lastname">Lastname</li>
+          <li id="house">House</li>
+        </ul>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="container" data-container></div>
+      <br><br>Viciously committed by Erik Granberg
+    </div>
+  </div>
+
 
   <template data-template>
     <div class="student">
