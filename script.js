@@ -3,7 +3,7 @@
 let arrayOfStudents = [];
 let arrayOfExpelled = [];
 let activeArray;
-let houseFilter = "All";
+let filter = "All";
 let sortBy = "None";
 
 // prototype "template"
@@ -60,6 +60,10 @@ function init() {
   document
     .querySelector("#slytherin")
     .addEventListener("click", filterSlytherin);
+
+  document.querySelector("#expelled").addEventListener("click", filterExpelled);
+
+  getJson();
   document.querySelector("#firstname").addEventListener("click", sortFirstName);
   document.querySelector("#lastname").addEventListener("click", sortLastName);
   document.querySelector("#house").addEventListener("click", sortHouse);
@@ -90,7 +94,7 @@ function addIdToStudents() {
     student.id = idMade;
   });
   activeArray = arrayOfStudents;
-  filterStudents(houseFilter);
+  filterStudents(filter);
 }
 
 function makeId(input) {
@@ -115,42 +119,48 @@ function expelStudent(badStudentId) {
   arrayOfStudents = arrayOfStudents.filter(function(el) {
     return el.expelled === false;
   });
+
   activeArray = arrayOfStudents;
-  filterStudents(houseFilter);
+  filterStudents(filter);
 }
 
 function filterAll() {
-  houseFilter = "All";
+  filter = "All";
   activeArray = arrayOfStudents;
-  filterStudents(houseFilter);
+  filterStudents(filter);
 }
 
 function filterHufflepuff() {
-  houseFilter = "Hufflepuff";
-  filterStudents(houseFilter);
+  filter = "Hufflepuff";
+  filterStudents(filter);
 }
 
 function filterGryffindor() {
-  houseFilter = "Gryffindor";
-  filterStudents(houseFilter);
+  filter = "Gryffindor";
+  filterStudents(filter);
 }
 
 function filterRavenclaw() {
-  houseFilter = "Ravenclaw";
-  filterStudents(houseFilter);
+  filter = "Ravenclaw";
+  filterStudents(filter);
 }
 
 function filterSlytherin() {
-  houseFilter = "Slytherin";
-  filterStudents(houseFilter);
+  filter = "Slytherin";
+  filterStudents(filter);
 }
 
-function filterStudents(houseFilter) {
-  if (houseFilter === "All") {
+function filterExpelled() {
+  activeArray = arrayOfExpelled;
+  displayStudents();
+}
+
+function filterStudents(filter) {
+  if (filter === "All") {
     sortStudents(arrayOfStudents);
   } else {
     activeArray = arrayOfStudents.filter(function(student) {
-      return student.house === houseFilter;
+      return student.house === filter;
     });
     sortStudents();
   }
