@@ -65,6 +65,7 @@ nav {
 }
 
 nav ul {
+  margin: 0.5rem 0 1.5rem 0;
   list-style: none;
   padding-left: 0;
 }
@@ -85,18 +86,8 @@ nav li:hover {
 }
 
 .content {
-  padding: 0vw 3vw 3vw 5vw;
+  padding: 3vw;
 }
-
-
-
-/* for each student box */
-
-.student {}
-
-/* .student:nth-child(even) {
-    background-color: rgb(160, 194, 155);
-} */
 
 h1 {
   font-family: 'Viga', sans-serif;
@@ -106,6 +97,7 @@ h1 {
   width: 60vw;
   top: 35vh;
   left: 0vw;
+  text-shadow: 4px 8px 12px #000000;
 }
 
 h2 {
@@ -123,15 +115,16 @@ p {
 .info {
   position: absolute;
   top: 0;
-  left: 50vw;
+  left: 49vw;
   z-index: 50;
   text-align: right;
+  margin: 0.5rem 0 1.5rem 0;
 }
 
 .student {
   margin: 0;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
 }
 
 .house {
@@ -163,41 +156,48 @@ p {
 
 #student_counter::before {
   content: "Enrolled students: ";
+  padding: 0 0.5rem 0;
 }
 
 #hufflepuff_counter::before {
   content: "Hufflepuff: ";
+  padding: 0 0.5rem 0;
 }
 
 #gryffindor_counter::before {
   content: "Gryffindor: ";
+  padding: 0 0.5rem 0;
 }
 
 #ravenclaw_counter::before {
   content: "Ravenclaw: ";
+  padding: 0 0.5rem 0;
 }
 
 #slytherin_counter::before {
   content: "Slytherin: ";
+  padding: 0 0.5rem 0;
 }
 
 #expelled_counter::before {
   content: "Expelled students: ";
+  padding: 0 0.5rem 0;
 }
 
 .crest {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 0.5rem;
-  position: absolute;
-  top: 1rem;
   right: 1.25rem;
+  z-index: 100;
+  margin: 1.5rem 0 0 3rem;
 }
 
 .expel {
   position: relative;
   background-color: var(--font-blue);
   margin: auto;
+  margin-bottom: 2.7rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
   transition: 0.5s;

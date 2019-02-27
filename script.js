@@ -231,6 +231,10 @@ function displayStudents() {
     clone.querySelector("[data-middlename]").textContent = student.middleName;
     clone.querySelector("[data-lastname]").textContent = student.lastName;
     clone.querySelector("[data-house]").textContent = student.house;
+    clone.querySelector("[data-crest]").src = student.crest;
+
+
+
 
     if (student.expelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
