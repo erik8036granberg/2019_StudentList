@@ -1,6 +1,6 @@
 "use strict";
 
-const arrayOfStudents = [];
+let arrayOfStudents = [];
 let arrayOfExpelled = [];
 let activeArray;
 let houseFilter = "All";
@@ -108,6 +108,10 @@ function expelStudent(badStudentId) {
   arrayOfStudents[objIndex].expelled = true;
   console.log(arrayOfStudents);
 
+  arrayOfStudents = arrayOfStudents.filter(function(el) {
+    return el.expelled === false;
+  });
+
   activeArray = arrayOfStudents;
   filterStudents(houseFilter);
 }
@@ -214,10 +218,6 @@ function displayStudents() {
 
     let house_low = student.house;
     house_low = house_low.toLowerCase();
-
-    if (student.expelled === true) {
-      clone.querySelector("[data-expel]").classList.add("hide");
-    }
 
     clone.querySelector("[data-id]").textContent = student.id;
     clone.querySelector("[data-firstname]").textContent = student.firstName;
