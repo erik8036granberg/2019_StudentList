@@ -6,6 +6,43 @@ let activeArray;
 let houseFilter = "All";
 let sortBy = "None";
 
+// prototype "template"
+const studentPrototype = {
+  fullName: "-student name-",
+  firstName: "-student firstname-",
+  middleName: "-student middlename-",
+  lastName: "-student firstname-",
+  house: "-student house-",
+  crest: "-house crest-",
+  image: "-image-",
+  expelled: "-expelled-",
+  blooodstatus: "-blooodstatus-",
+  inquisitorialSquad: "-inquisitorialSquad-",
+
+  setJSONdata(studentData) {
+    const firstSpace = studentData.fullname.indexOf(" ");
+    const lastSpace = studentData.fullname.lastIndexOf(" ");
+    let name = this.fullName;
+
+    this.fullName = studentData.fullname;
+    this.firstName = studentData.fullname.substring(0, firstSpace);
+    this.middleName =
+      " " + studentData.fullname.substring(firstSpace + 1, lastSpace) + " ";
+    this.lastName = studentData.fullname.substring(lastSpace + 1);
+    this.house = studentData.house;
+    this.crest = "img/" + this.house.toLowerCase() + ".jpg";
+    this.image =
+      "images/" +
+      this.firstName.toLowerCase() +
+      "_" +
+      this.lastName.substring(0, 1).toLowerCase() +
+      ".jpg";
+    this.expelled = false;
+    this.blooodstatus = "?";
+    this.inquisitorialSquad = false;
+  }
+};
+
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
@@ -37,53 +74,30 @@ async function getJson() {
 }
 
 function studentObject(students) {
-  // prototype "template"
-  const studentPrototype = {
-    fullName: "-student name-",
-    firstName: "-student firstname-",
-    middleName: "-student middlename-",
-    lastName: "-student firstname-",
-    house: "-student house-",
-    crest: "-house crest-",
-    image: "-image-",
-    expelled: "-expelled-",
-    blooodstatus: "-blooodstatus-",
-    inquisitorialSquad: "-inquisitorialSquad-",
-    id: "-student iD-",
-
-    setJSONdata(studentData) {
-      const firstSpace = studentData.fullname.indexOf(" ");
-      const lastSpace = studentData.fullname.lastIndexOf(" ");
-      const id = makeId(this.fullName);
-
-      this.fullName = studentData.fullname;
-      this.firstName = studentData.fullname.substring(0, firstSpace);
-      this.middleName =
-        " " + studentData.fullname.substring(firstSpace + 1, lastSpace) + " ";
-      this.lastName = studentData.fullname.substring(lastSpace + 1);
-      this.house = studentData.house;
-      this.crest = "img/" + this.house.toLowerCase() + ".jpg";
-      this.image =
-        "images/" +
-        this.firstName.toLowerCase() +
-        "_" +
-        this.lastName.substring(0, 1).toLowerCase() +
-        ".jpg";
-      this.expelled = false;
-      this.blooodstatus = "?";
-      this.inquisitorialSquad = false;
-      this.id = id;
-    }
-  };
-
   students.forEach(studentData => {
     // create, clone and add studentObject
     const student = Object.create(studentPrototype);
     student.setJSONdata(studentData);
     arrayOfStudents.push(student);
   });
+
+  //add unique id to students
+  arrayOfStudents.forEach(student => {
+    const idMade = makeId(student.fullName);
+    console.log(idMade);
+    student.id = idMade;
+  });
   activeArray = arrayOfStudents;
   filterStudents(houseFilter);
+}
+
+function makeId(name) {
+  const input = name;
+  let idMade = "";
+  for (let i = 0; i < input.length; i++) {
+    idMade += input[i].charCodeAt(0);
+  }
+  return idMade.substring(0, 7);
 }
 
 function filterAll() {
@@ -116,7 +130,7 @@ function filterStudents(houseFilter) {
   if (houseFilter === "All") {
     sortStudents(arrayOfStudents);
   } else {
-    activeArray = arrayOfStudents.filter(function (student) {
+    activeArray = arrayOfStudents.filter(function(student) {
       return student.house === houseFilter;
     });
     sortStudents();
@@ -143,7 +157,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "firstName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.firstName < z.firstName) {
         return -1;
       } else {
@@ -153,7 +167,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "lastName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.lastName < z.lastName) {
         return -1;
       } else {
@@ -163,7 +177,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "house") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.house < z.house) {
         return -1;
       } else {
@@ -193,6 +207,7 @@ function displayStudents() {
     house_low = house_low.toLowerCase();
 
     //	insert data into template fields & add background color + crest picture
+    clone.querySelector("[data-id]").textContent = student.id;
     clone.querySelector("[data-firstname]").textContent = student.firstName;
     clone.querySelector("[data-middlename]").textContent = student.middleName;
     clone.querySelector("[data-lastname]").textContent = student.lastName;
@@ -210,12 +225,3 @@ function displayStudents() {
 
 // Toto: remove expeled student from list
 // Put expeled student to "expelled" list
-
-function makeId(student) {
-  let input = "Harry Potter";
-  let output = "";
-  for (let i = 0; i < input.length; i++) {
-    output += input[i].charCodeAt(0);
-  }
-  return output.substring(0, 7);
-}
