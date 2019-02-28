@@ -25,7 +25,7 @@
   </div>
   <div class="wrapper">
     <nav>
-      <div class="nav_holder">Filter by:
+      <div class="nav_holder">Filter by house:
         <ul>
           <li id="all">All</button>
           <li id="hufflepuff">Hufflepuff</li>
@@ -50,10 +50,10 @@
         </ul>
       </div>
     </nav>
-    <div class="content">
+    <main class="content">
       <div class="container" data-container></div>
       <br><br>Viciously committed by Erik Granberg
-    </div>
+    </main>
   </div>
 
   <template data-template>
@@ -66,21 +66,20 @@
       <div class="expel">Expel</div>
     </div>
 
-    <!-- <img src="" alt="" class="crest" data-img> -->
-
-    </div>
-
   </template>
 
-  <!-- <div id="modal">
-    <button>Close</button>
+  <div id="modal">
+    <button id="modal_luk">Close</button>
     <div id="modal-content">
-      <h2 data-fullname>Fullname</h2>
-      <p data-house>House</p>
-      <img src="images/potter_h.png" class="modal_portrait" alt="" data-img>
-      <img src="img/gryffindor.jpg" class="modal_crest" alt="" data-img>
+      <div class="student">
+        <div class="student_name">
+          <h2><span data-firstname></span><span data-middlename></span><span data-lastname></span></h2>
+          <p class="house" data-house></p>
+        </div>
+        <img src="" alt="" class="crest" data-crest>
+        <div class="expel">Expel</div>
     </div>
-  </div> -->
+  </div>
 
   <script src="script.js"></script>
 

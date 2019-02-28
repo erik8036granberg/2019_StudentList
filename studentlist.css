@@ -85,6 +85,18 @@ nav li:hover {
   cursor: pointer;
 }
 
+nav .statusoff {
+  background-color: var(--font-blue_hover);
+  color: #000000;
+  cursor: default;
+}
+
+nav .statuson {
+  background-color: var(--font-blue);
+  color: #ffffff;
+  cursor: pointer;
+}
+
 .content {
   padding: 3vw;
 }
@@ -121,13 +133,30 @@ p {
   margin: 0.5rem 0 1.5rem 0;
 }
 
-.student {
+main .student {
   margin: 0;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
+  border-radius: 0.5rem;
+  position: relative;
 }
 
-.house {
+main .student_name:hover {
+  cursor: pointer;
+  transition: 1s;
+  transform: scale(1.025);
+}
+
+main .student_name:hover::before {
+  content: "\25ba";
+  font-size: 1.5rem;
+  position: absolute;
+  top: 22px;
+  left: -35px;
+}
+
+
+main .house {
   color: var(--font-blue);
   font-size: 1.75rem;
 }
@@ -149,6 +178,8 @@ p {
 .ravenclaw {
   background-color: var(--ravenclaw);
 }
+
+
 
 #student_counter {
   margin: 2rem 0 0 0;
@@ -184,7 +215,65 @@ p {
   padding: 0 0.5rem 0;
 }
 
-.crest {
+#modal {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+  z-index: 100;
+  overflow: auto;
+}
+
+#modal.vis {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#modal-content {
+  color: #fff;
+  max-width: 70vw;
+  background-color: rgb(0, 0, 0);
+  margin: auto;
+  padding: 1vw 3vw 4vw;
+  text-align: left;
+  margin: 0 0 2vw;
+}
+
+#modal button {
+  background-color: var(--logofarve);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 10px 7px;
+  text-transform: uppercase;
+  margin: 0;
+  white-space: nowrap;
+  margin: 1rem 0 2rem;
+}
+
+#modal button:hover {
+  background-color: var(--logograa_moerk);
+  transition: 1s;
+}
+
+#modal .student {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+#modal .crest {
   width: 3rem;
   height: 3rem;
   border-radius: 0.5rem;
@@ -193,7 +282,7 @@ p {
   margin: 1.5rem 0 0 3rem;
 }
 
-.expel {
+#modal .expel {
   position: relative;
   background-color: var(--font-blue);
   margin: auto;
@@ -203,19 +292,7 @@ p {
   transition: 0.5s;
 }
 
-.expel:hover {
+#modal .expel:hover {
   background-color: var(--font-blue_hover);
-  cursor: pointer;
-}
-
-.statusoff {
-  background-color: var(--font-blue_hover);
-  color: #000000;
-  cursor: default;
-}
-
-.statuson {
-  background-color: var(--font-blue);
-  color: #ffffff;
   cursor: pointer;
 }
