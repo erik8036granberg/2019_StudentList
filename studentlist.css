@@ -170,8 +170,7 @@ main .house,
   font-size: 1.75rem;
 }
 
-main .expel,
-#modal .expel {
+main .expel {
   position: relative;
   background-color: var(--font-blue);
   margin: auto;
@@ -263,7 +262,9 @@ main .expel:hover,
 }
 
 #modal-content {
+  position: relative;
   color: #fff;
+  min-width: 25vw;
   max-width: 70vw;
   background-color: rgb(0, 0, 0);
   margin: auto;
@@ -292,16 +293,41 @@ main .expel:hover,
 #modal .student {
   margin: 0;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   border-radius: 0.5rem;
   position: relative;
 }
 
 #modal .crest {
-  width: 3rem;
-  height: 3rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 0.5rem;
-  right: 1.25rem;
   z-index: 100;
-  margin: 1.5rem 0 0 3rem;
+  margin: 3rem 0 0 3rem;
+}
+
+#modal .image {
+  width: 12rem;
+  min-height: 12rem;
+}
+
+#modal #closemodal {
+  font-size: 2.5rem;
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+}
+
+#modal .expel {
+  position: relative;
+  background-color: var(--font-blue);
+  margin: auto;
+  margin-bottom: 2.7rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: 0.5s;
+}
+
+.hide {
+  display: none;
 }

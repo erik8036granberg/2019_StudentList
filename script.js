@@ -32,12 +32,8 @@ const studentPrototype = {
     this.lastName = studentData.fullname.substring(lastSpace + 1);
     this.house = studentData.house;
     this.crest = "img/" + this.house.toLowerCase() + ".jpg";
-    this.image =
-      "images/" +
-      this.firstName.toLowerCase() +
-      "_" +
-      this.lastName.substring(0, 1).toLowerCase() +
-      ".jpg";
+    this.image = "images/" + this.lastName.toLowerCase() + "_" +
+      this.firstName.substring(0, 1).toLowerCase() + ".png";
     this.expelled = false;
     this.blooodstatus = "?";
     this.inquisitorialSquad = false;
@@ -289,14 +285,15 @@ function displayStudents() {
 //viser modal ved at skite i css (opasity), og starter skjulModal
 function showModal(student) {
   modal.classList.add("vis");
-  modal.querySelector("button").addEventListener("click", skjulModal);
-  document.querySelector("#modal").addEventListener("click", skjulModal);
+  modal.querySelector("#closemodal").addEventListener("click", hideModal);
+  document.querySelector("#modal").addEventListener("click", hideModal);
 
   modal.querySelector("[data-firstname]").textContent = student.firstName;
   modal.querySelector("[data-middlename]").textContent = student.middleName;
   modal.querySelector("[data-lastname]").textContent = student.lastName;
   modal.querySelector("[data-house]").textContent = student.house;
   modal.querySelector("[data-crest]").src = student.crest;
+  modal.querySelector("[data-image]").src = student.image;
 
   if (student.expelled === false) {
     modal.querySelector(".expel").addEventListener("click", () => {
@@ -309,9 +306,9 @@ function showModal(student) {
 }
 
 //skjuler modal ved slå css "vis" fra
-function skjulModal() {
+function hideModal() {
   modal.classList.remove("vis");
-  modal.querySelector("#modal_luk").removeEventListener("click", skjulModal)
+  modal.querySelector("#closemodal").removeEventListener("click", hideModal)
 }
 
 
