@@ -255,6 +255,11 @@ function displayStudents() {
     console.log(activeArray);
     let clone = template.content.cloneNode(true);
 
+    //indsætter eventlistner på article-class
+    clone.querySelector(".student_name").addEventListener("click", () => {
+      showModal(student);
+    });
+
     clone.querySelector("[data-firstname]").textContent = student.firstName;
     clone.querySelector("[data-middlename]").textContent = student.middleName;
     clone.querySelector("[data-lastname]").textContent = student.lastName;
@@ -268,19 +273,10 @@ function displayStudents() {
     } else {
       clone.querySelector(".expel").remove();
     }
-
-    //indsætter eventlistner på article-class
-    clone.querySelector(".student_name").addEventListener("click", () => {
-      showModal(student);
-    });
-
     container.appendChild(clone);
   });
   countStudents();
 }
-
-
-
 
 //viser modal ved at skite i css (opasity), og starter skjulModal
 function showModal(student) {
@@ -293,7 +289,18 @@ function showModal(student) {
   modal.querySelector("[data-lastname]").textContent = student.lastName;
   modal.querySelector("[data-house]").textContent = student.house;
   modal.querySelector("[data-crest]").src = student.crest;
-  modal.querySelector("[data-image]").src = student.image;
+
+  let nameCor = student.image;
+  if (student.lastName === "Finch-Fletchly") {
+    nameCor = "images/" + nameCor.substring(nameCor.indexOf("-") + 1.);
+    nameCor = nameCor.replace(/ly/i, "ley");
+  }
+  if (student.lastName === "Macmillian") {
+    nameCor = nameCor.replace(/Macmillian_e/i, "macmillan_e");
+  }
+
+
+  modal.querySelector("[data-image]").src = nameCor;
 
   if (student.expelled === false) {
     modal.querySelector(".expel").addEventListener("click", () => {
