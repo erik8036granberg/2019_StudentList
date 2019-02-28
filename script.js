@@ -109,17 +109,15 @@ function expelStudent(badStudentId) {
   arrayOfStudents[objIndex].expelled = true;
 
   let expelledStudent = arrayOfStudents[objIndex];
-  arrayOfExpelled.push(expelledStudent);
-
-  console.log(arrayOfExpelled);
+  arrayOfExpelled.unshift(expelledStudent);
 
   //remove student from display
-  arrayOfStudents = arrayOfStudents.filter(function (el) {
+  arrayOfStudents = arrayOfStudents.filter(function(el) {
     return el.expelled === false;
   });
 
   activeArray = arrayOfStudents;
-  filterStudents(houseFilter);
+  filterStudents();
 }
 
 function filterAll() {
@@ -152,7 +150,7 @@ function filterStudents(houseFilter) {
   if (houseFilter === "All") {
     sortStudents(arrayOfStudents);
   } else {
-    activeArray = arrayOfStudents.filter(function (student) {
+    activeArray = arrayOfStudents.filter(function(student) {
       return student.house === houseFilter;
     });
     sortStudents();
@@ -179,7 +177,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "firstName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.firstName < z.firstName) {
         return -1;
       } else {
@@ -189,7 +187,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "lastName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.lastName < z.lastName) {
         return -1;
       } else {
@@ -199,7 +197,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "house") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.house < z.house) {
         return -1;
       } else {
@@ -224,7 +222,8 @@ function displayStudents() {
   container.innerHTML = "";
 
   activeArray.forEach(student => {
-    console.log(student);
+    console.log("dislay list");
+    console.log(activeArray);
     let clone = template.content.cloneNode(true);
 
     clone.querySelector("[data-firstname]").textContent = student.firstName;
@@ -232,9 +231,6 @@ function displayStudents() {
     clone.querySelector("[data-lastname]").textContent = student.lastName;
     clone.querySelector("[data-house]").textContent = student.house;
     clone.querySelector("[data-crest]").src = student.crest;
-
-
-
 
     if (student.expelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
@@ -253,26 +249,26 @@ function countStudents() {
   const countAll = arrayOfStudents.length;
   document.querySelector("#student_counter").textContent = countAll;
 
-  const hufflepuffArray = arrayOfStudents.filter(function (el) {
+  const hufflepuffArray = arrayOfStudents.filter(function(el) {
     return el.house === "Hufflepuff";
   });
   document.querySelector("#hufflepuff_counter").textContent =
     hufflepuffArray.length;
 
-  const gryffindorArray = arrayOfStudents.filter(function (el) {
+  const gryffindorArray = arrayOfStudents.filter(function(el) {
     return el.house === "Gryffindor";
   });
   document.querySelector("#gryffindor_counter").textContent =
     gryffindorArray.length;
 
-  const ravenclawArray = arrayOfStudents.filter(function (el) {
+  const ravenclawArray = arrayOfStudents.filter(function(el) {
     return el.house === "Ravenclaw";
   });
 
   document.querySelector("#ravenclaw_counter").textContent =
     ravenclawArray.length;
 
-  const slytherinArray = arrayOfStudents.filter(function (el) {
+  const slytherinArray = arrayOfStudents.filter(function(el) {
     return el.house === "Slytherin";
   });
   document.querySelector("#slytherin_counter").textContent =
