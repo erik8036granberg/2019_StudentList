@@ -155,10 +155,36 @@ main .student_name:hover::before {
   left: -35px;
 }
 
+main .crest {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  right: 1.25rem;
+  z-index: 100;
+  margin: 1.5rem 0 0 3rem;
+}
 
-main .house {
+main .house,
+#modal .house {
   color: var(--font-blue);
   font-size: 1.75rem;
+}
+
+main .expel,
+#modal .expel {
+  position: relative;
+  background-color: var(--font-blue);
+  margin: auto;
+  margin-bottom: 2.7rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: 0.5s;
+}
+
+main .expel:hover,
+#modal .expel:hover {
+  background-color: var(--font-blue_hover);
+  cursor: pointer;
 }
 
 /* Styles for adding colors and crests to different houses in js */
@@ -178,8 +204,6 @@ main .house {
 .ravenclaw {
   background-color: var(--ravenclaw);
 }
-
-
 
 #student_counter {
   margin: 2rem 0 0 0;
@@ -280,19 +304,4 @@ main .house {
   right: 1.25rem;
   z-index: 100;
   margin: 1.5rem 0 0 3rem;
-}
-
-#modal .expel {
-  position: relative;
-  background-color: var(--font-blue);
-  margin: auto;
-  margin-bottom: 2.7rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  transition: 0.5s;
-}
-
-#modal .expel:hover {
-  background-color: var(--font-blue_hover);
-  cursor: pointer;
 }
