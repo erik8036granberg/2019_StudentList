@@ -2,6 +2,7 @@
 
 let arrayOfStudents = [];
 let arrayOfExpelled = [];
+let showexpelled = false;
 let activeArray;
 let houseFilter = "All";
 let sortBy = "None";
@@ -66,6 +67,7 @@ function init() {
   getJson();
 
   document.querySelector("#expelled").addEventListener("click", expelledButton);
+  document.querySelector("#enrolled").addEventListener("click", enrolledButton);
 }
 
 //	get json
@@ -92,7 +94,7 @@ function addIdToStudents() {
     student.id = idMade;
   });
   activeArray = arrayOfStudents;
-  filterStudents(houseFilter);
+  filterStudents();
 }
 
 function makeId(input) {
@@ -111,49 +113,85 @@ function expelStudent(badStudentId) {
   let expelledStudent = arrayOfStudents[objIndex];
   arrayOfExpelled.unshift(expelledStudent);
 
+  console.log(arrayOfExpelled);
+
   //remove student from display
   arrayOfStudents = arrayOfStudents.filter(function(el) {
     return el.expelled === false;
   });
-
   activeArray = arrayOfStudents;
+  filterStudents();
+}
+
+function enrolledButton() {
+  activeArray = arrayOfStudents;
+  showexpelled = false;
+  document.querySelector("#enrolled").classList.remove("statusoff");
+  document.querySelector("#expelled").classList.remove("statuson");
+  document.querySelector("#expelled").classList.add("statusoff");
+  filterStudents();
+}
+
+function expelledButton() {
+  activeArray = arrayOfExpelled;
+  showexpelled = true;
+  document.querySelector("#expelled").classList.add("statuson");
+  document.querySelector("#enrolled").classList.remove("statuson");
+  document.querySelector("#enrolled").classList.add("statusoff");
+
   filterStudents();
 }
 
 function filterAll() {
   houseFilter = "All";
-  activeArray = arrayOfStudents;
-  filterStudents(houseFilter);
+  if (showexpelled == false) {
+    activeArray = arrayOfStudents;
+    filterStudents();
+  } else {
+    activeArray = arrayOfExpelled;
+  }
+  filterStudents();
 }
 
 function filterHufflepuff() {
   houseFilter = "Hufflepuff";
-  filterStudents(houseFilter);
+  filterStudents();
 }
 
 function filterGryffindor() {
   houseFilter = "Gryffindor";
-  filterStudents(houseFilter);
+  filterStudents();
 }
 
 function filterRavenclaw() {
   houseFilter = "Ravenclaw";
-  filterStudents(houseFilter);
+  filterStudents();
 }
 
 function filterSlytherin() {
   houseFilter = "Slytherin";
-  filterStudents(houseFilter);
+  filterStudents();
 }
 
-function filterStudents(houseFilter) {
-  if (houseFilter === "All") {
-    sortStudents(arrayOfStudents);
+function filterStudents() {
+  if (showexpelled == false) {
+    if (houseFilter === "All") {
+      sortStudents(arrayOfStudents);
+    } else {
+      activeArray = arrayOfStudents.filter(function(student) {
+        return student.house === houseFilter;
+      });
+      sortStudents();
+    }
   } else {
-    activeArray = arrayOfStudents.filter(function(student) {
-      return student.house === houseFilter;
-    });
-    sortStudents();
+    if (houseFilter === "All") {
+      sortStudents(arrayOfExpelled);
+    } else {
+      activeArray = arrayOfExpelled.filter(function(student) {
+        return student.house === houseFilter;
+      });
+      sortStudents();
+    }
   }
 }
 
@@ -206,11 +244,6 @@ function sortStudents() {
     });
     displayStudents();
   }
-}
-
-function expelledButton() {
-  activeArray = arrayOfExpelled;
-  displayStudents();
 }
 
 function displayStudents() {
@@ -277,9 +310,3 @@ function countStudents() {
   const countExpelled = arrayOfExpelled.length;
   document.querySelector("#expelled_counter").textContent = countExpelled;
 }
-
-// todo: basic design
-// modal window for display
-// counter-stuff in diferant way?
-// code optimiseing
-// Plan of functions for hand in

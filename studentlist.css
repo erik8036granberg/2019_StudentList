@@ -207,3 +207,15 @@ p {
   background-color: var(--font-blue_hover);
   cursor: pointer;
 }
+
+.statusoff {
+  background-color: var(--font-blue_hover);
+  color: #000000;
+  cursor: default;
+}
+
+.statuson {
+  background-color: var(--font-blue);
+  color: #ffffff;
+  cursor: pointer;
+}
