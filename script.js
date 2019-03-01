@@ -2,7 +2,7 @@
 
 let arrayOfStudents = [];
 let arrayOfExpelled = [];
-let arrayOfInquisitorialSquad = [];
+let arrayOfInSquad = [];
 let showexpelled = false;
 let activeArray;
 let houseFilter = "All";
@@ -19,7 +19,7 @@ const studentPrototype = {
   image: "-image-",
   expelled: "-expelled-",
   bloodstatus: "-bloodstatus-",
-  inquisitorialSquad: "-inquisitorialSquad-",
+  inSquad: "-inquisitorialSquad-",
 
   setJSONdata(studentData) {
     const firstSpace = studentData.fullname.indexOf(" ");
@@ -41,7 +41,7 @@ const studentPrototype = {
       ".png";
     this.expelled = false;
     this.bloodstatus = "none";
-    this.inquisitorialSquad = false;
+    this.inSquad = false;
   }
 };
 
@@ -95,7 +95,7 @@ function studentObject(students, families) {
   });
   getHalfBloods(families);
   getPureBloods(families);
-  getMuggleBloods();
+  setMuggleBloods();
   addIdToStudents();
 }
 
@@ -127,7 +127,7 @@ function setBloodStatus(bloodName, bloodLabel) {
   }
 }
 
-function getMuggleBloods() {
+function setMuggleBloods() {
   arrayOfStudents.forEach(student => {
     if (student.bloodstatus === "none") {
       student.bloodstatus = "muggleblood";
@@ -161,8 +161,6 @@ function expelStudent(badStudentId) {
   let expelledStudent = arrayOfStudents[objIndex];
   arrayOfExpelled.unshift(expelledStudent);
 
-  console.log(arrayOfExpelled);
-
   //remove student from display
   arrayOfStudents = arrayOfStudents.filter(function (el) {
     return el.expelled === false;
@@ -172,22 +170,26 @@ function expelStudent(badStudentId) {
 }
 
 function joinInSq(StudentId) {
-  //set expel-status to true
+  //set joinInSq-status to true
+
   let objIndex = arrayOfStudents.findIndex(obj => obj.id == StudentId);
-  arrayOfStudents[objIndex].inquisitorialSquad = true;
+  if (objIndex.includes("pureblood")) {
+    arrayOfStudents[objIndex].inSquad = true;
 
-  let inquisitorialSquadStudent = arrayOfStudents[objIndex];
-  arrayOfInquisitorialSquad.unshift(inquisitorialSquadStudent);
+    let inSquadStudent = arrayOfStudents[objIndex];
+    arrayOfInSquad.unshift(inSquadStudent);
 
-  console.log(arrayOfExpelled);
-
-  //remove student from display
-  arrayOfStudents = arrayOfStudents.filter(function (el) {
-    return el.expelled === false;
-  });
-  activeArray = arrayOfStudents;
-  filterStudents();
+    // //remove student from display
+    // arrayOfStudents = arrayOfStudents.filter(function (el) {
+    //   return el.expelled === false;
+    // });
+    activeArray = arrayOfStudents;
+    filterStudents();
+  } else {
+    alert("No can do!");
+  }
 }
+
 
 
 function enrolledButton() {
@@ -379,7 +381,9 @@ function showModal(student) {
     modal.querySelector(".expel").remove();
   }
 
-  modal.querySelector(".inquisitorialSquad").addEventListener("click", () => {
+  modal.querySelector("[data-bloodstatus]").textContent = student.bloodstatus;
+
+  modal.querySelector(".inquisitorialsquad").addEventListener("click", () => {
     joinInSq(student.id);
   });
 
