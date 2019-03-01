@@ -17,7 +17,7 @@ const studentPrototype = {
   crest: "-house crest-",
   image: "-image-",
   expelled: "-expelled-",
-  blooodstatus: "-blooodstatus-",
+  bloodstatus: "-bloodstatus-",
   inquisitorialSquad: "-inquisitorialSquad-",
 
   setJSONdata(studentData) {
@@ -32,10 +32,14 @@ const studentPrototype = {
     this.lastName = studentData.fullname.substring(lastSpace + 1);
     this.house = studentData.house;
     this.crest = "img/" + this.house.toLowerCase() + ".jpg";
-    this.image = "images/" + this.lastName.toLowerCase() + "_" +
-      this.firstName.substring(0, 1).toLowerCase() + ".png";
+    this.image =
+      "images/" +
+      this.lastName.toLowerCase() +
+      "_" +
+      this.firstName.substring(0, 1).toLowerCase() +
+      ".png";
     this.expelled = false;
-    this.blooodstatus = "?";
+    this.bloodstatus = "none";
     this.inquisitorialSquad = false;
   }
 };
@@ -64,23 +68,53 @@ function init() {
 
   document.querySelector("#expelled").addEventListener("click", expelledButton);
   document.querySelector("#enrolled").addEventListener("click", enrolledButton);
+  getJson();
 }
 
 //	get json
 async function getJson() {
   let Json = await fetch("students.json");
   let students = await Json.json();
-  studentObject(students);
+  getJsonFam(students);
 }
 
-function studentObject(students) {
+//	get families
+async function getJsonFam(students) {
+  let JsonFam = await fetch("families.json");
+  let families = await JsonFam.json();
+  studentObject(students, families);
+}
+
+function studentObject(students, families) {
   students.forEach(studentData => {
     // create, clone and add studentObject
     const student = Object.create(studentPrototype);
     student.setJSONdata(studentData);
     arrayOfStudents.push(student);
   });
-  addIdToStudents();
+  getNames(families);
+}
+
+function getNames(families) {
+  console.log("families");
+  console.log("getNames");
+  let name = families.half;
+  console.log(name);
+  name.forEach(halfbloodName => {
+    console.log("halfbloodName: " + halfbloodName);
+    setBloodStatus(halfbloodName);
+    addIdToStudents();
+  });
+}
+
+function setBloodStatus(halfbloodName) {
+  //set bloodstatus
+  // console.log("halfbloodName: " + halfbloodName);
+  let objIndex = arrayOfStudents.findIndex(
+    obj => obj.lastName == halfbloodName
+  );
+  arrayOfStudents[objIndex].bloodstatus = "halfblood";
+  console.log(arrayOfStudents);
 }
 
 function addIdToStudents() {
@@ -112,7 +146,7 @@ function expelStudent(badStudentId) {
   console.log(arrayOfExpelled);
 
   //remove student from display
-  arrayOfStudents = arrayOfStudents.filter(function (el) {
+  arrayOfStudents = arrayOfStudents.filter(function(el) {
     return el.expelled === false;
   });
   activeArray = arrayOfStudents;
@@ -174,7 +208,7 @@ function filterStudents() {
     if (houseFilter === "All") {
       sortStudents(arrayOfStudents);
     } else {
-      activeArray = arrayOfStudents.filter(function (student) {
+      activeArray = arrayOfStudents.filter(function(student) {
         return student.house === houseFilter;
       });
       sortStudents();
@@ -183,7 +217,7 @@ function filterStudents() {
     if (houseFilter === "All") {
       sortStudents(arrayOfExpelled);
     } else {
-      activeArray = arrayOfExpelled.filter(function (student) {
+      activeArray = arrayOfExpelled.filter(function(student) {
         return student.house === houseFilter;
       });
       sortStudents();
@@ -211,7 +245,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "firstName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.firstName < z.firstName) {
         return -1;
       } else {
@@ -221,7 +255,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "lastName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.lastName < z.lastName) {
         return -1;
       } else {
@@ -231,7 +265,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "house") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.house < z.house) {
         return -1;
       } else {
@@ -243,8 +277,6 @@ function sortStudents() {
 }
 
 function displayStudents() {
-  console.log("displayList");
-
   const template = document.querySelector("[data-template]");
   const container = document.querySelector("[data-container]");
   const background = document.querySelector("[data-background]");
@@ -255,7 +287,6 @@ function displayStudents() {
     console.log(activeArray);
     let clone = template.content.cloneNode(true);
 
-    //indsætter eventlistner på article-class
     clone.querySelector(".student_name").addEventListener("click", () => {
       showModal(student);
     });
@@ -278,9 +309,8 @@ function displayStudents() {
   countStudents();
 }
 
-//viser modal ved at skite i css (opasity), og starter skjulModal
 function showModal(student) {
-  modal.classList.add("vis");
+  modal.classList.add("show");
   modal.querySelector("#closemodal").addEventListener("click", hideModal);
   document.querySelector("#modal").addEventListener("click", hideModal);
 
@@ -290,15 +320,15 @@ function showModal(student) {
   modal.querySelector("[data-house]").textContent = student.house;
   modal.querySelector("[data-crest]").src = student.crest;
 
+  //problems with image path
   let nameCor = student.image;
   if (student.lastName === "Finch-Fletchly") {
-    nameCor = "images/" + nameCor.substring(nameCor.indexOf("-") + 1.);
+    nameCor = "images/" + nameCor.substring(nameCor.indexOf("-") + 1);
     nameCor = nameCor.replace(/ly/i, "ley");
   }
   if (student.lastName === "Macmillian") {
     nameCor = nameCor.replace(/Macmillian_e/i, "macmillan_e");
   }
-
 
   modal.querySelector("[data-image]").src = nameCor;
 
@@ -309,41 +339,38 @@ function showModal(student) {
   } else {
     modal.querySelector(".expel").remove();
   }
-
 }
 
-//skjuler modal ved slå css "vis" fra
+//hide modal
 function hideModal() {
   modal.classList.remove("vis");
-  modal.querySelector("#closemodal").removeEventListener("click", hideModal)
+  modal.querySelector("#closemodal").removeEventListener("click", hideModal);
 }
-
-
 
 function countStudents() {
   const countAll = arrayOfStudents.length;
   document.querySelector("#student_counter").textContent = countAll;
 
-  const hufflepuffArray = arrayOfStudents.filter(function (el) {
+  const hufflepuffArray = arrayOfStudents.filter(function(el) {
     return el.house === "Hufflepuff";
   });
   document.querySelector("#hufflepuff_counter").textContent =
     hufflepuffArray.length;
 
-  const gryffindorArray = arrayOfStudents.filter(function (el) {
+  const gryffindorArray = arrayOfStudents.filter(function(el) {
     return el.house === "Gryffindor";
   });
   document.querySelector("#gryffindor_counter").textContent =
     gryffindorArray.length;
 
-  const ravenclawArray = arrayOfStudents.filter(function (el) {
+  const ravenclawArray = arrayOfStudents.filter(function(el) {
     return el.house === "Ravenclaw";
   });
 
   document.querySelector("#ravenclaw_counter").textContent =
     ravenclawArray.length;
 
-  const slytherinArray = arrayOfStudents.filter(function (el) {
+  const slytherinArray = arrayOfStudents.filter(function(el) {
     return el.house === "Slytherin";
   });
   document.querySelector("#slytherin_counter").textContent =

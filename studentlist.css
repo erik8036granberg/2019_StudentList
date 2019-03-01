@@ -256,7 +256,7 @@ main .expel:hover,
   overflow: auto;
 }
 
-#modal.vis {
+#modal.show {
   opacity: 1;
   pointer-events: all;
 }
