@@ -2,6 +2,7 @@
 
 let arrayOfStudents = [];
 let arrayOfExpelled = [];
+let arrayOfInquisitorialSquad = [];
 let showexpelled = false;
 let activeArray;
 let houseFilter = "All";
@@ -93,6 +94,9 @@ function studentObject(students, families) {
     arrayOfStudents.push(student);
   });
   getHalfBloods(families);
+  getPureBloods(families);
+  getMuggleBloods();
+  addIdToStudents();
 }
 
 function getHalfBloods(families) {
@@ -102,26 +106,33 @@ function getHalfBloods(families) {
     setBloodStatus(bloodName, bloodLabel);
     console.log(bloodName);
   });
-  addIdToStudents();
-  // getPureBloods(families);
 }
 
-// function getPureBloods(families) {
-//   let pureBloods = families.pure;
-//   let bloodLabel = "pureblood";
-//   pureBloods.forEach(bloodName => {
-//     setBloodStatus(bloodName, bloodLabel);
-//     console.log(bloodName);
-//   });
-//   addIdToStudents();
-// }
+function getPureBloods(families) {
+  let pureBloods = families.pure;
+  let bloodLabel = "pureblood";
+  pureBloods.forEach(bloodName => {
+    console.log(bloodName);
+    setBloodStatus(bloodName, bloodLabel);
+  });
+}
 
 function setBloodStatus(bloodName, bloodLabel) {
   let objIndex = arrayOfStudents.findIndex(
     obj => obj.lastName == bloodName
   );
-  arrayOfStudents[objIndex].bloodstatus = bloodLabel;
-  console.log(arrayOfStudents);
+  console.log(objIndex);
+  if (objIndex !== -1) {
+    arrayOfStudents[objIndex].bloodstatus = bloodLabel;
+  }
+}
+
+function getMuggleBloods() {
+  arrayOfStudents.forEach(student => {
+    if (student.bloodstatus === "none") {
+      student.bloodstatus = "muggleblood";
+    }
+  });
 }
 
 function addIdToStudents() {
@@ -159,6 +170,25 @@ function expelStudent(badStudentId) {
   activeArray = arrayOfStudents;
   filterStudents();
 }
+
+function joinInSq(StudentId) {
+  //set expel-status to true
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id == StudentId);
+  arrayOfStudents[objIndex].inquisitorialSquad = true;
+
+  let inquisitorialSquadStudent = arrayOfStudents[objIndex];
+  arrayOfInquisitorialSquad.unshift(inquisitorialSquadStudent);
+
+  console.log(arrayOfExpelled);
+
+  //remove student from display
+  arrayOfStudents = arrayOfStudents.filter(function (el) {
+    return el.expelled === false;
+  });
+  activeArray = arrayOfStudents;
+  filterStudents();
+}
+
 
 function enrolledButton() {
   activeArray = arrayOfStudents;
@@ -348,11 +378,16 @@ function showModal(student) {
   } else {
     modal.querySelector(".expel").remove();
   }
+
+  modal.querySelector(".inquisitorialSquad").addEventListener("click", () => {
+    joinInSq(student.id);
+  });
+
 }
 
 //hide modal
 function hideModal() {
-  modal.classList.remove("vis");
+  modal.classList.remove("show");
   modal.querySelector("#closemodal").removeEventListener("click", hideModal);
 }
 

@@ -318,7 +318,8 @@ main .expel:hover,
   right: 2rem;
 }
 
-#modal .expel {
+#modal .expel,
+#modal .inquisitorialSquad {
   position: relative;
   background-color: var(--font-blue);
   margin: auto;
