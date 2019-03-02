@@ -99,7 +99,7 @@ function studentObject(students, families) {
   getPureBloods(families);
   setMuggleBloods();
   activeArray = arrayOfStudents;
-  addIdToStudents();
+  corrrectNames();
 }
 
 function getHalfBloods(families) {
@@ -135,6 +135,30 @@ function setMuggleBloods() {
       student.bloodstatus = "Muggleblood";
     }
   });
+}
+
+function corrrectNames() {
+  console.log("corrrectNames");
+  arrayOfStudents.forEach(student => {
+    let nameCorrect = student.image;
+
+    if (student.lastName === "Macmillian") {
+      student.image = "images/macmillan_e.png";
+    }
+
+    if (student.image === "images/-unknown-_l.png") {
+      student.image = "img/noname.png";
+    }
+    if (student.image === "images/_h.png") {
+      student.image = "images/granger_h.png";
+    }
+
+    if (student.image === "images/finch-fletchly_j.png") {
+      student.image = "images/fletchley_j.png";
+    }
+  });
+  activeArray = arrayOfStudents;
+  addIdToStudents();
 }
 
 function addIdToStudents() {
