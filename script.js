@@ -40,7 +40,7 @@ const studentPrototype = {
       this.firstName.substring(0, 1).toLowerCase() +
       ".png";
     this.expelled = false;
-    this.bloodstatus = "none";
+    this.bloodstatus = "None";
     this.inSquad = false;
   }
 };
@@ -101,7 +101,7 @@ function studentObject(students, families) {
 
 function getHalfBloods(families) {
   let halfBloods = families.half;
-  let bloodLabel = "halfblood";
+  let bloodLabel = "Halfblood";
   halfBloods.forEach(bloodName => {
     setBloodStatus(bloodName, bloodLabel);
     console.log(bloodName);
@@ -110,7 +110,7 @@ function getHalfBloods(families) {
 
 function getPureBloods(families) {
   let pureBloods = families.pure;
-  let bloodLabel = "pureblood";
+  let bloodLabel = "Pureblood";
   pureBloods.forEach(bloodName => {
     console.log(bloodName);
     setBloodStatus(bloodName, bloodLabel);
@@ -118,9 +118,7 @@ function getPureBloods(families) {
 }
 
 function setBloodStatus(bloodName, bloodLabel) {
-  let objIndex = arrayOfStudents.findIndex(
-    obj => obj.lastName == bloodName
-  );
+  let objIndex = arrayOfStudents.findIndex(obj => obj.lastName == bloodName);
   console.log(objIndex);
   if (objIndex !== -1) {
     arrayOfStudents[objIndex].bloodstatus = bloodLabel;
@@ -129,8 +127,8 @@ function setBloodStatus(bloodName, bloodLabel) {
 
 function setMuggleBloods() {
   arrayOfStudents.forEach(student => {
-    if (student.bloodstatus === "none") {
-      student.bloodstatus = "muggleblood";
+    if (student.bloodstatus === "None") {
+      student.bloodstatus = "Muggleblood";
     }
   });
 }
@@ -156,13 +154,14 @@ function makeId(input) {
 function expelStudent(badStudentId) {
   //set expel-status to true
   let objIndex = arrayOfStudents.findIndex(obj => obj.id == badStudentId);
-  arrayOfStudents[objIndex].expelled = true;
 
   let expelledStudent = arrayOfStudents[objIndex];
   arrayOfExpelled.unshift(expelledStudent);
 
+  arrayOfStudents[objIndex].expelled = true;
+
   //remove student from display
-  arrayOfStudents = arrayOfStudents.filter(function (el) {
+  arrayOfStudents = arrayOfStudents.filter(function(el) {
     return el.expelled === false;
   });
   activeArray = arrayOfStudents;
@@ -173,24 +172,17 @@ function joinInSq(StudentId) {
   //set joinInSq-status to true
 
   let objIndex = arrayOfStudents.findIndex(obj => obj.id == StudentId);
-  if (objIndex.includes("pureblood")) {
-    arrayOfStudents[objIndex].inSquad = true;
-
+  if (arrayOfStudents[objIndex].bloodstatus === "Pureblood") {
     let inSquadStudent = arrayOfStudents[objIndex];
     arrayOfInSquad.unshift(inSquadStudent);
 
-    // //remove student from display
-    // arrayOfStudents = arrayOfStudents.filter(function (el) {
-    //   return el.expelled === false;
-    // });
+    arrayOfStudents[objIndex].inSquad = true;
     activeArray = arrayOfStudents;
     filterStudents();
   } else {
     alert("No can do!");
   }
 }
-
-
 
 function enrolledButton() {
   activeArray = arrayOfStudents;
@@ -249,7 +241,7 @@ function filterStudents() {
     if (houseFilter === "All") {
       sortStudents(arrayOfStudents);
     } else {
-      activeArray = arrayOfStudents.filter(function (student) {
+      activeArray = arrayOfStudents.filter(function(student) {
         return student.house === houseFilter;
       });
       sortStudents();
@@ -258,7 +250,7 @@ function filterStudents() {
     if (houseFilter === "All") {
       sortStudents(arrayOfExpelled);
     } else {
-      activeArray = arrayOfExpelled.filter(function (student) {
+      activeArray = arrayOfExpelled.filter(function(student) {
         return student.house === houseFilter;
       });
       sortStudents();
@@ -286,7 +278,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "firstName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.firstName < z.firstName) {
         return -1;
       } else {
@@ -296,7 +288,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "lastName") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.lastName < z.lastName) {
         return -1;
       } else {
@@ -306,7 +298,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "house") {
-    activeArray.sort(function (a, z) {
+    activeArray.sort(function(a, z) {
       if (a.house < z.house) {
         return -1;
       } else {
@@ -386,7 +378,6 @@ function showModal(student) {
   modal.querySelector(".inquisitorialsquad").addEventListener("click", () => {
     joinInSq(student.id);
   });
-
 }
 
 //hide modal
@@ -399,26 +390,26 @@ function countStudents() {
   const countAll = arrayOfStudents.length;
   document.querySelector("#student_counter").textContent = countAll;
 
-  const hufflepuffArray = arrayOfStudents.filter(function (el) {
+  const hufflepuffArray = arrayOfStudents.filter(function(el) {
     return el.house === "Hufflepuff";
   });
   document.querySelector("#hufflepuff_counter").textContent =
     hufflepuffArray.length;
 
-  const gryffindorArray = arrayOfStudents.filter(function (el) {
+  const gryffindorArray = arrayOfStudents.filter(function(el) {
     return el.house === "Gryffindor";
   });
   document.querySelector("#gryffindor_counter").textContent =
     gryffindorArray.length;
 
-  const ravenclawArray = arrayOfStudents.filter(function (el) {
+  const ravenclawArray = arrayOfStudents.filter(function(el) {
     return el.house === "Ravenclaw";
   });
 
   document.querySelector("#ravenclaw_counter").textContent =
     ravenclawArray.length;
 
-  const slytherinArray = arrayOfStudents.filter(function (el) {
+  const slytherinArray = arrayOfStudents.filter(function(el) {
     return el.house === "Slytherin";
   });
   document.querySelector("#slytherin_counter").textContent =
