@@ -164,7 +164,8 @@ main .crest {
   margin: 1.5rem 0 0 3rem;
 }
 
-main .house {
+main .house,
+#modal .house {
   color: var(--font-blue);
   font-size: 1.75rem;
 }
@@ -262,20 +263,30 @@ main .expel:hover {
 #modal-content {
   position: relative;
   color: #fff;
-  text-align: left;
-  font-size: 1rem;
   min-width: 25vw;
   max-width: 70vw;
   background-color: rgb(0, 0, 0);
   margin: auto;
-  padding: 3vw 3vw 4vw;
+  padding: 1vw 3vw 4vw;
+  text-align: left;
   margin: 0 0 2vw;
 }
 
-#modal .status {
-  grid-column: 1/2;
-  color: #ffffff;
-  background-color: red,
+#modal button {
+  background-color: var(--logofarve);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 10px 7px;
+  text-transform: uppercase;
+  margin: 0;
+  white-space: nowrap;
+  margin: 1rem 0 2rem;
+}
+
+#modal button:hover {
+  background-color: var(--logograa_moerk);
+  transition: 1s;
 }
 
 #modal .student {
@@ -286,18 +297,12 @@ main .expel:hover {
   position: relative;
 }
 
-#modal .house {
-  color: var(--font-blue);
-  font-size: 1.75rem;
-  margin: 0;
-}
-
 #modal .crest {
   width: 5rem;
   height: 5rem;
   border-radius: 0.5rem;
   z-index: 100;
-  grid-column: 1/2;
+  margin: 3rem 0 0 3rem;
 }
 
 #modal .image {
@@ -312,15 +317,9 @@ main .expel:hover {
   right: 2rem;
 }
 
-#modal #closemodal:hover {
-  cursor: pointer;
-  transition: 1s;
-  transform: scale(1.2);
-}
-
 #modal .expel,
-#modal .insquad {
-  display: inline-block;
+#modal .inquisitorialsquad {
+
   width: 10rem;
   position: relative;
   background-color: var(--font-blue);
@@ -332,17 +331,14 @@ main .expel:hover {
 }
 
 #modal .expel:hover,
-#modal .insquad:hover {
+#modal .inquisitorialsquad:hover {
   background-color: var(--font-blue_hover);
   cursor: pointer;
 }
 
-#modal .expelstatus::before {
-  content: "Expelstatus: ";
-}
-
 #modal .bloodstatus {
-  font-size: 1.5rem;
+  color: #ffffff;
+  font-size: 1.75rem;
 }
 
 .hide {
