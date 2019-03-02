@@ -191,6 +191,18 @@ function joinInSq(StudentId) {
   }
 }
 
+function exitInSq(StudentId) {
+  console.log("exitInSq");
+
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id == StudentId);
+  let inSquadStudent = arrayOfStudents[objIndex];
+  arrayOfInSquad.splice(inSquadStudent);
+  arrayOfStudents[objIndex].inSquad = false;
+  activeArray = arrayOfStudents;
+  filterStudents();
+
+}
+
 function enrolledButton() {
   console.log("enrolledButton");
   activeArray = arrayOfStudents;
@@ -336,7 +348,9 @@ function displayStudents() {
   container.innerHTML = "";
 
   activeArray.forEach(student => {
+
     console.log("dislay student");
+
     let clone = template.content.cloneNode(true);
 
     clone.querySelector(".student_name").addEventListener("click", () => {
@@ -363,9 +377,13 @@ function displayStudents() {
 
 function showModal(student) {
   console.log("showModal");
+  console.log(student.id);
+  console.log(student.expelled);
+  console.log(student.bloodstatus);
+
   modal.classList.add("show");
   modal.querySelector("#closemodal").addEventListener("click", hideModal);
-  document.querySelector("#modal").addEventListener("click", hideModal);
+  // document.querySelector("#modal").addEventListener("click", hideModal);
 
   modal.querySelector("[data-firstname]").textContent = student.firstName;
   modal.querySelector("[data-middlename]").textContent = student.middleName;
@@ -388,6 +406,7 @@ function showModal(student) {
   if (student.expelled === false) {
     modal.querySelector(".expel").addEventListener("click", () => {
       expelStudent(student.id);
+      hideModal();
     });
   } else {
     modal.querySelector(".expel").remove();
@@ -395,9 +414,24 @@ function showModal(student) {
 
   modal.querySelector("[data-bloodstatus]").textContent = student.bloodstatus;
 
-  modal.querySelector(".inquisitorialsquad").addEventListener("click", () => {
-    joinInSq(student.id);
-  });
+  console.log(student.inSquad);
+
+  if (student.inSquad === false) {
+    modal.querySelector(".insquad").textContent = "Join InSquad";
+    modal.querySelector(".insquad").addEventListener("click", () => {
+      modal.querySelector(".insquad").removeEventListener("click", this);
+      joinInSq(student.id)
+      hideModal();
+    });
+  }
+  if (student.inSquad === true) {
+    modal.querySelector(".insquad").textContent = "Exit InSquad";
+    modal.querySelector(".insquad").removeEventListener("click", this);
+    modal.querySelector(".insquad").addEventListener("click", () => {
+      exitInSq(student.id)
+      hideModal();
+    });
+  }
 }
 
 //hide modal

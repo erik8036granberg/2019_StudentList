@@ -317,8 +317,14 @@ main .expel:hover {
   right: 2rem;
 }
 
+#modal #closemodal:hover {
+  cursor: pointer;
+  transition: 1s;
+  transform: scale(1.2);
+}
+
 #modal .expel,
-#modal .inquisitorialsquad {
+#modal .insquad {
 
   width: 10rem;
   position: relative;
@@ -331,7 +337,7 @@ main .expel:hover {
 }
 
 #modal .expel:hover,
-#modal .inquisitorialsquad:hover {
+#modal .insquad:hover {
   background-color: var(--font-blue_hover);
   cursor: pointer;
 }
