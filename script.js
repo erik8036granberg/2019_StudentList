@@ -7,6 +7,10 @@ let showexpelled = false;
 let activeArray;
 let houseFilter = "All";
 let sortBy = "None";
+let studentId;
+
+let dest = document.querySelector(".data-container");
+let modal = document.querySelector("#modal");
 
 // prototype "template"
 const studentPrototype = {
@@ -181,23 +185,17 @@ function makeId(input) {
   return idMade.substring(0, 7);
 }
 
-function expelStudent(badStudentId) {
+function expelStudent(studentId) {
   console.log("expelStudent");
-  let objIndex = arrayOfStudents.findIndex(obj => obj.id == badStudentId);
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id == studentId);
   let expelledStudent = arrayOfStudents[objIndex];
   arrayOfExpelled.unshift(expelledStudent);
-  arrayOfStudents[objIndex].expelled = true;
-  console.log(
-    "student.expelled: " +
-      expelledStudent.firstName +
-      " " +
-      expelledStudent.lastName
-  );
+  arrayOfStudents.splice(objIndex, 1);
 
-  //remove student from display
-  arrayOfStudents = arrayOfStudents.filter(function(el) {
-    return el.expelled === false;
-  });
+  // //remove student from display
+  // arrayOfStudents = arrayOfStudents.filter(function(el) {
+  //   return el.expelled === false;
+  // });
   activeArray = arrayOfStudents;
   filterStudents();
 }
@@ -379,10 +377,10 @@ function displayStudents() {
 
   activeArray.forEach(student => {
     let clone = template.content.cloneNode(true);
-    let studentId = student.id;
+    studentId = student.id;
 
     clone.querySelector(".student_name").addEventListener("click", () => {
-      showModal(student);
+      showModal(student, studentId);
     });
 
     clone.querySelector("[data-firstname]").textContent = student.firstName;
@@ -391,7 +389,7 @@ function displayStudents() {
     clone.querySelector("[data-house]").textContent = student.house;
     clone.querySelector("[data-crest]").src = student.crest;
 
-    if (student.expelled === false) {
+    if (showexpelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
         expelStudent(studentId);
       });
@@ -403,9 +401,8 @@ function displayStudents() {
   countStudents();
 }
 
-function showModal(student) {
+function showModal(student, studentId) {
   console.log("showModal");
-  let studentId = student.id;
 
   modal.classList.add("show");
   modal.querySelector("#closemodal").addEventListener("click", hideModal);
@@ -417,19 +414,9 @@ function showModal(student) {
   modal.querySelector("[data-house]").textContent = student.house;
   modal.querySelector("[data-crest]").src = student.crest;
 
-  //problems with image path
-  let nameCor = student.image;
-  if (student.lastName === "Finch-Fletchly") {
-    nameCor = "images/" + nameCor.substring(nameCor.indexOf("-") + 1);
-    nameCor = nameCor.replace(/ly/i, "ley");
-  }
-  if (student.lastName === "Macmillian") {
-    nameCor = nameCor.replace(/Macmillian_e/i, "macmillan_e");
-  }
+  modal.querySelector("[data-image]").src = student.image;
 
-  modal.querySelector("[data-image]").src = nameCor;
-
-  if (student.expelled === false) {
+  if (showexpelled === false) {
     modal.querySelector(".expel").addEventListener("click", () => {
       expelStudent(studentId);
       hideModal();
@@ -497,4 +484,6 @@ function countStudents() {
 
   const countExpelled = arrayOfExpelled.length;
   document.querySelector("#expelled_counter").textContent = countExpelled;
+  console.log(arrayOfExpelled);
+  console.log(arrayOfInSquad);
 }
