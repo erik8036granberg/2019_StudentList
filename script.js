@@ -100,8 +100,8 @@ function studentObject(students, families) {
   getHalfBloods(families);
   getPureBloods(families);
   setMuggleBloods();
-  activeArray = arrayOfStudents;
   corrrectNames();
+  activeArray = arrayOfStudents;
 }
 
 function getHalfBloods(families) {
@@ -163,20 +163,6 @@ function corrrectNames() {
   addIdToStudents();
 }
 
-<<<<<<< HEAD
-=======
-function addIdToStudents() {
-  console.log("addIdToStudents");
-  //add unique id to students
-  arrayOfStudents.forEach(student => {
-    const idMade = makeId(student.fullName);
-    student.id = idMade;
-  });
-  activeArray = arrayOfStudents;
-  filterStudents();
-}
-
->>>>>>> 3f85d8c958cb6f6952bc9e9e23a23583f29f5f33
 function addIdToStudents() {
   console.log("addIdToStudents");
   //add unique id to students
@@ -461,53 +447,6 @@ function showModal(student) {
   //   });
   // }
 }
-
-// function showModal(student) {
-//   console.log("showModal");
-
-//   modal.classList.add("show");
-//   modal.querySelector("#closemodal").addEventListener("click", hideModal);
-//   // document.querySelector("#modal").addEventListener("click", hideModal);
-
-//   modal.querySelector("[data-firstname]").textContent = student.firstName;
-//   modal.querySelector("[data-middlename]").textContent = student.middleName;
-//   modal.querySelector("[data-lastname]").textContent = student.lastName;
-//   modal.querySelector("[data-house]").textContent = student.house;
-//   modal.querySelector("[data-crest]").src = student.crest;
-
-//   modal.querySelector("[data-image]").src = student.image;
-
-//   if (student.expelled === false) {
-//     modal.querySelector(".expel").addEventListener("click", () => {
-//       expel = student.id;
-//       expelStudent(expel);
-//       hideModal();
-//     });
-//   } else {
-//     modal.querySelector(".expel").remove();
-//   }
-
-//   modal.querySelector("[data-bloodstatus]").textContent = student.bloodstatus;
-
-//   if (student.inSquad === false) {
-//     modal.querySelector(".insquad").textContent = "Join InSquad";
-//     modal.querySelector(".insquad").addEventListener("click", () => {
-//       modal.querySelector(".insquad").removeEventListener("click", this);
-//       joinInSq(studentId);
-//       hideModal();
-//     });
-//   }
-//   if (student.inSquad === true) {
-//     modal.querySelector(".insquad").textContent = "Exit InSquad";
-//     modal.querySelector(".insquad").removeEventListener("click", this);
-//     modal.querySelector(".insquad").addEventListener("click", () => {
-//       exitInSq(studentId);
-//       hideModal();
-//     });
-//   }
-// }
-
-//hide modal
 function hideModal() {
   console.log("hideModal");
   modal.classList.remove("show");
