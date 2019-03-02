@@ -1,7 +1,6 @@
 /* body {
     background-color: aliceblue;
 }
-
 /* root house colors */
 
 :root {
@@ -164,8 +163,7 @@ main .crest {
   margin: 1.5rem 0 0 3rem;
 }
 
-main .house,
-#modal .house {
+main .house {
   color: var(--font-blue);
   font-size: 1.75rem;
 }
@@ -263,30 +261,20 @@ main .expel:hover {
 #modal-content {
   position: relative;
   color: #fff;
+  text-align: left;
+  font-size: 1rem;
   min-width: 25vw;
   max-width: 70vw;
   background-color: rgb(0, 0, 0);
   margin: auto;
-  padding: 1vw 3vw 4vw;
-  text-align: left;
+  padding: 3vw 3vw 4vw;
   margin: 0 0 2vw;
 }
 
-#modal button {
-  background-color: var(--logofarve);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 7px 10px 7px;
-  text-transform: uppercase;
-  margin: 0;
-  white-space: nowrap;
-  margin: 1rem 0 2rem;
-}
-
-#modal button:hover {
-  background-color: var(--logograa_moerk);
-  transition: 1s;
+#modal .status {
+  grid-column: 1/2;
+  color: #ffffff;
+  background-color: red,
 }
 
 #modal .student {
@@ -297,12 +285,18 @@ main .expel:hover {
   position: relative;
 }
 
+#modal .house {
+  color: var(--font-blue);
+  font-size: 1.75rem;
+  margin: 0;
+}
+
 #modal .crest {
   width: 5rem;
   height: 5rem;
   border-radius: 0.5rem;
   z-index: 100;
-  margin: 3rem 0 0 3rem;
+  grid-column: 1/2;
 }
 
 #modal .image {
@@ -317,9 +311,15 @@ main .expel:hover {
   right: 2rem;
 }
 
-#modal .expel,
-#modal .inquisitorialsquad {
+#modal #closemodal:hover {
+  cursor: pointer;
+  transition: 1s;
+  transform: scale(1.2);
+}
 
+#modal .expel,
+#modal .insquad {
+  display: inline-block;
   width: 10rem;
   position: relative;
   background-color: var(--font-blue);
@@ -331,14 +331,17 @@ main .expel:hover {
 }
 
 #modal .expel:hover,
-#modal .inquisitorialsquad:hover {
+#modal .insquad:hover {
   background-color: var(--font-blue_hover);
   cursor: pointer;
 }
 
+#modal .expelstatus::before {
+  content: "Expelstatus: ";
+}
+
 #modal .bloodstatus {
-  color: #ffffff;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
 .hide {

@@ -7,8 +7,6 @@ let showexpelled = false;
 let activeArray;
 let houseFilter = "All";
 let sortBy = "None";
-let modal = document.querySelector("#modal");
-let expel;
 
 // prototype "template"
 const studentPrototype = {
@@ -100,8 +98,8 @@ function studentObject(students, families) {
   getHalfBloods(families);
   getPureBloods(families);
   setMuggleBloods();
-  corrrectNames();
   activeArray = arrayOfStudents;
+  corrrectNames();
 }
 
 function getHalfBloods(families) {
@@ -185,14 +183,16 @@ function makeId(input) {
 
 function expelStudent(badStudentId) {
   console.log("expelStudent");
-  //set expel-status to true
   let objIndex = arrayOfStudents.findIndex(obj => obj.id == badStudentId);
-  arrayOfStudents[objIndex].expelled = true;
-
   let expelledStudent = arrayOfStudents[objIndex];
   arrayOfExpelled.unshift(expelledStudent);
-
-  console.log(arrayOfExpelled);
+  arrayOfStudents[objIndex].expelled = true;
+  console.log(
+    "student.expelled: " +
+      expelledStudent.firstName +
+      " " +
+      expelledStudent.lastName
+  );
 
   //remove student from display
   arrayOfStudents = arrayOfStudents.filter(function(el) {
@@ -371,17 +371,19 @@ function sortStudents() {
 }
 
 function displayStudents() {
-  console.log("displayList");
-
+  console.log("displayStudents");
   const template = document.querySelector("[data-template]");
   const container = document.querySelector("[data-container]");
   const background = document.querySelector("[data-background]");
   container.innerHTML = "";
 
   activeArray.forEach(student => {
-    console.log("dislay list");
-    console.log(activeArray);
     let clone = template.content.cloneNode(true);
+    let studentId = student.id;
+
+    clone.querySelector(".student_name").addEventListener("click", () => {
+      showModal(student);
+    });
 
     clone.querySelector("[data-firstname]").textContent = student.firstName;
     clone.querySelector("[data-middlename]").textContent = student.middleName;
@@ -391,26 +393,23 @@ function displayStudents() {
 
     if (student.expelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
-        expelStudent(student.id);
+        expelStudent(studentId);
       });
     } else {
       clone.querySelector(".expel").remove();
     }
-
-    //indsætter eventlistner på article-class
-    clone.querySelector(".student_name").addEventListener("click", () => {
-      showModal(student);
-    });
-
     container.appendChild(clone);
   });
   countStudents();
 }
 
 function showModal(student) {
+  console.log("showModal");
+  let studentId = student.id;
+
   modal.classList.add("show");
   modal.querySelector("#closemodal").addEventListener("click", hideModal);
-  document.querySelector("#modal").addEventListener("click", hideModal);
+  // document.querySelector("#modal").addEventListener("click", hideModal);
 
   modal.querySelector("[data-firstname]").textContent = student.firstName;
   modal.querySelector("[data-middlename]").textContent = student.middleName;
@@ -418,35 +417,48 @@ function showModal(student) {
   modal.querySelector("[data-house]").textContent = student.house;
   modal.querySelector("[data-crest]").src = student.crest;
 
+  //problems with image path
+  let nameCor = student.image;
+  if (student.lastName === "Finch-Fletchly") {
+    nameCor = "images/" + nameCor.substring(nameCor.indexOf("-") + 1);
+    nameCor = nameCor.replace(/ly/i, "ley");
+  }
+  if (student.lastName === "Macmillian") {
+    nameCor = nameCor.replace(/Macmillian_e/i, "macmillan_e");
+  }
+
+  modal.querySelector("[data-image]").src = nameCor;
+
   if (student.expelled === false) {
     modal.querySelector(".expel").addEventListener("click", () => {
-      expelStudent(student.id);
+      expelStudent(studentId);
+      hideModal();
     });
   } else {
     modal.querySelector(".expel").remove();
   }
 
-  modal.querySelector("[data-image]").src = student.image;
-
   modal.querySelector("[data-bloodstatus]").textContent = student.bloodstatus;
 
-  // if (student.inSquad === false) {
-  //   modal.querySelector(".insquad").textContent = "Join InSquad";
-  //   modal.querySelector(".insquad").addEventListener("click", () => {
-  //     modal.querySelector(".insquad").removeEventListener("click", this);
-  //     joinInSq(studentId);
-  //     hideModal();
-  //   });
-  // }
-  // if (student.inSquad === true) {
-  //   modal.querySelector(".insquad").textContent = "Exit InSquad";
-  //   modal.querySelector(".insquad").removeEventListener("click", this);
-  //   modal.querySelector(".insquad").addEventListener("click", () => {
-  //     exitInSq(studentId);
-  //     hideModal();
-  //   });
-  // }
+  if (student.inSquad === false) {
+    modal.querySelector(".insquad").textContent = "Join InSquad";
+    modal.querySelector(".insquad").addEventListener("click", () => {
+      modal.querySelector(".insquad").removeEventListener("click", this);
+      joinInSq(studentId);
+      hideModal();
+    });
+  }
+  if (student.inSquad === true) {
+    modal.querySelector(".insquad").textContent = "Exit InSquad";
+    modal.querySelector(".insquad").removeEventListener("click", this);
+    modal.querySelector(".insquad").addEventListener("click", () => {
+      exitInSq(studentId);
+      hideModal();
+    });
+  }
 }
+
+//hide modal
 function hideModal() {
   console.log("hideModal");
   modal.classList.remove("show");
@@ -485,7 +497,4 @@ function countStudents() {
 
   const countExpelled = arrayOfExpelled.length;
   document.querySelector("#expelled_counter").textContent = countExpelled;
-
-  console.log(arrayOfStudents);
-  console.log(arrayOfExpelled);
 }
