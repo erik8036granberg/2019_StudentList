@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="This is my student list for the 09C-1.01.01 submition on feb 6th 2019.">
-  <title>Student List final</title>
+  <title>Student List hacked</title>
   <link rel="stylesheet" href="studentlist.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Shojumaru" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Copse" rel="stylesheet">
@@ -13,31 +13,11 @@
 </head>
 
 <body>
-  <div class="bg_image"></div>
   <div id="modal">
-    <div id="modal-content">
-      <div id="closemodal">&#10006;</div>
-      <div class="student">
-        <div>
-          <img src="" alt="" class="image" data-image>
-          <h2><span data-firstname></span><span data-middlename></span><span data-lastname></span></h2>
-          <p class="house" data-house></p>
-          <p class="bloodstatus" data-bloodstatus></p>
-        </div>
-        <div>
-          <img src="" alt="" class="crest" data-crest>
-        </div>
-        <div class="status">
-          <div class="Studentstatus" data-bloodstatus></div>
-          <div class="expel">Expel</div>
-        </div>
-        <div>
-          <div class="insquad">Join InSquad</div>
-        </div>
-
-      </div>
+    <div id="modal-content" data-modalContainer>
     </div>
   </div>
+  <div class="bg_image"></div>
   <h1>Students 1991</h1>
   <div class="info">
     <div id="student_counter"></div>
@@ -88,8 +68,20 @@
       </div>
       <img src="" alt="" class="crest" data-crest>
       <div class="expel">Expel</div>
+      <p class="id" data-id></p>
     </div>
+  </template>
 
+  <template data-modalTemplate>
+    <div class="student">
+      <div class="student_name">
+        <h2><span data-firstname></span><span data-middlename></span><span data-lastname></span></h2>
+        <p class="house" data-house></p>
+      </div>
+      <img src="" alt="" class="crest" data-crest>
+      <div class="expel">Expel</div>
+      <p class="id" data-id></p>
+    </div>
   </template>
 
   <script src="script.js"></script>

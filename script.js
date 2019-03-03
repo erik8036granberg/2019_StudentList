@@ -7,10 +7,6 @@ let showexpelled = false;
 let activeArray;
 let houseFilter = "All";
 let sortBy = "None";
-let activeId;
-
-let dest = document.querySelector(".data-container");
-let modal = document.querySelector("#modal");
 
 // prototype "template"
 const studentPrototype = {
@@ -160,6 +156,13 @@ function corrrectNames() {
     if (student.image === "images/finch-fletchly_j.png") {
       student.image = "images/fletchley_j.png";
     }
+    if (student.fullName === "Leanne -unknown-") {
+      student.fullName = "Leanne";
+    }
+
+    if (student.lastName === "-unknown-") {
+      student.lastName = "";
+    }
   });
   activeArray = arrayOfStudents;
   addIdToStudents();
@@ -182,13 +185,13 @@ function makeId(input) {
   for (let i = 0; i < input.length; i++) {
     idMade += input[i].charCodeAt(0);
   }
-  return idMade.substring(0, 7);
+  return idMade;
 }
 
-function expelStudent(badStudentId) {
+function expelStudent(activeId) {
   console.log("expelStudent");
   //set expel-status to true
-  let objIndex = arrayOfStudents.findIndex(obj => obj.id === badStudentId);
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id === activeId);
   arrayOfStudents[objIndex].expelled = true;
   let expelledStudent = arrayOfStudents[objIndex];
   arrayOfExpelled.unshift(expelledStudent);
@@ -261,7 +264,7 @@ function expelledButton() {
 function filterAll() {
   console.log("filterAll");
   houseFilter = "All";
-  if (showexpelled == false) {
+  if (showexpelled === false) {
     activeArray = arrayOfStudents;
     filterStudents();
   } else {
@@ -296,7 +299,7 @@ function filterSlytherin() {
 
 function filterStudents() {
   console.log("filterStudents");
-  if (showexpelled == false) {
+  if (showexpelled === false) {
     if (houseFilter === "All") {
       sortStudents(arrayOfStudents);
     } else {
@@ -376,14 +379,14 @@ function displayStudents() {
   console.log("displayStudents");
   const template = document.querySelector("[data-template]");
   const container = document.querySelector("[data-container]");
-  const background = document.querySelector("[data-background]");
   container.innerHTML = "";
 
   activeArray.forEach(student => {
     let clone = template.content.cloneNode(true);
 
     clone.querySelector(".student_name").addEventListener("click", () => {
-      showModal(student);
+      displayModal(student.id);
+      document.querySelector("#modal").classList.add("show");
     });
 
     clone.querySelector("[data-firstname]").textContent = student.firstName;
@@ -391,6 +394,7 @@ function displayStudents() {
     clone.querySelector("[data-lastname]").textContent = student.lastName;
     clone.querySelector("[data-house]").textContent = student.house;
     clone.querySelector("[data-crest]").src = student.crest;
+    clone.querySelector("[data-id]").textContent = student.id;
 
     if (showexpelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
@@ -404,56 +408,41 @@ function displayStudents() {
   countStudents();
 }
 
-function showModal(student) {
-  console.log("showModal");
+function displayModal(StudentId) {
+  console.log("displayModal");
+  const modalTemplate = document.querySelector("[data-modalTemplate]");
+  const modalContainer = document.querySelector("[data-modalContainer]");
+  modalContainer.innerHTML = "";
 
-  modal.classList.add("show");
-  modal.querySelector("#closemodal").addEventListener("click", hideModal);
-  // document.querySelector("#modal").addEventListener("click", hideModal);
+  activeArray.forEach(student => {
+    let clone = modalTemplate.content.cloneNode(true);
 
-  modal.querySelector("[data-firstname]").textContent = student.firstName;
-  modal.querySelector("[data-middlename]").textContent = student.middleName;
-  modal.querySelector("[data-lastname]").textContent = student.lastName;
-  modal.querySelector("[data-house]").textContent = student.house;
-  modal.querySelector("[data-crest]").src = student.crest;
+    if (student.id === StudentId) {
+      clone.querySelector("[data-firstname]").textContent = student.firstName;
+      clone.querySelector("[data-middlename]").textContent = student.middleName;
+      clone.querySelector("[data-lastname]").textContent = student.lastName;
+      clone.querySelector("[data-house]").textContent = student.house;
+      clone.querySelector("[data-crest]").src = student.crest;
+      clone.querySelector("[data-id]").textContent = student.id;
 
-  modal.querySelector("[data-image]").src = student.image;
+      if (showexpelled === false) {
+        clone.querySelector(".expel").addEventListener("click", () => {
+          expelStudent(student.id);
+        });
+      } else {
+        clone.querySelector(".expel").remove();
+      }
 
-  if (showexpelled === false) {
-    modal.querySelector(".expel").addEventListener("click", () => {
-      activeId = student.id;
-      expelStudent(activeId);
-      hideModal();
-    });
-  } else {
-    modal.querySelector(".expel").remove();
-  }
-
-  modal.querySelector("[data-bloodstatus]").textContent = student.bloodstatus;
-
-  if (student.inSquad === false) {
-    modal.querySelector(".insquad").textContent = "Join InSquad";
-    modal.querySelector(".insquad").addEventListener("click", () => {
-      // modal.querySelector(".insquad").removeEventListener("click", this);
-      joinInSq(student.id);
-      hideModal();
-    });
-  }
-  if (student.inSquad === true) {
-    modal.querySelector(".insquad").textContent = "Exit InSquad";
-    // modal.querySelector(".insquad").removeEventListener("click", this);
-    modal.querySelector(".insquad").addEventListener("click", () => {
-      exitInSq(student.id);
-      hideModal();
-    });
-  }
+      modalContainer.appendChild(clone);
+    }
+  });
 }
 
 //hide modal
 function hideModal() {
   console.log("hideModal");
-  modal.classList.remove("show");
-  modal.querySelector("#closemodal").removeEventListener("click", hideModal);
+  document.querySelector("#closemodal").removeEventListener("click", hideModal);
+  document.querySelector("#modal").classList.remove("show");
 }
 
 function countStudents() {
@@ -492,5 +481,4 @@ function countStudents() {
   console.log(arrayOfExpelled);
   console.log("arrayOfInSquad");
   console.log(arrayOfInSquad);
-  console.log("activeId" + activeId);
 }
