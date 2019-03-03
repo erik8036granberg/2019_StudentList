@@ -166,25 +166,21 @@ function corrrectNames() {
     if (student.image === "images/granberg_e.png") {
       student.image = "img/granberg_e.png";
     }
-
     if (student.lastName === "Macmillian") {
       student.image = "images/macmillan_e.png";
     }
-
     if (student.image === "images/-unknown-_l.png") {
       student.image = "img/noname.png";
     }
     if (student.image === "images/_h.png") {
       student.image = "images/granger_h.png";
     }
-
     if (student.image === "images/finch-fletchly_j.png") {
       student.image = "images/fletchley_j.png";
     }
     if (student.fullName === "Leanne -unknown-") {
       student.fullName = "Leanne";
     }
-
     if (student.lastName === "-unknown-") {
       student.lastName = "";
     }
@@ -253,6 +249,21 @@ function joinInSq(StudentId) {
     arrayOfStudents[objIndex].inSquad = true;
     arrayOfInSquad.unshift(inSquadStudent);
     activeArray = arrayOfStudents;
+
+    // The Random hack is here
+    let randomTime = Math.floor(Math.random() * 4000) + 4000;
+    setTimeout(changeBack, randomTime);
+    console.log(randomTime);
+
+    function changeBack() {
+      let objIndex = arrayOfStudents.findIndex(obj => obj.id === StudentId);
+      let inSquadStudent = arrayOfStudents[objIndex];
+      arrayOfInSquad.splice(inSquadStudent);
+      arrayOfStudents[objIndex].inSquad = false;
+      activeArray = arrayOfStudents;
+      filterStudents();
+    }
+
     filterStudents();
   } else {
     alert("No can do!");
