@@ -7,7 +7,7 @@ let showexpelled = false;
 let activeArray;
 let houseFilter = "All";
 let sortBy = "None";
-let studentId;
+let activeId;
 
 let dest = document.querySelector(".data-container");
 let modal = document.querySelector("#modal");
@@ -185,17 +185,21 @@ function makeId(input) {
   return idMade.substring(0, 7);
 }
 
-function expelStudent(studentId) {
+function expelStudent(badStudentId) {
   console.log("expelStudent");
-  let objIndex = arrayOfStudents.findIndex(obj => obj.id == studentId);
+  //set expel-status to true
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id === badStudentId);
+  arrayOfStudents[objIndex].expelled = true;
   let expelledStudent = arrayOfStudents[objIndex];
   arrayOfExpelled.unshift(expelledStudent);
-  arrayOfStudents.splice(objIndex, 1);
+  // arrayOfStudents.splice(objIndex, 1);
 
-  // //remove student from display
-  // arrayOfStudents = arrayOfStudents.filter(function(el) {
-  //   return el.expelled === false;
-  // });
+  console.log(arrayOfExpelled);
+
+  //remove student from display
+  arrayOfStudents = arrayOfStudents.filter(function(el) {
+    return el.expelled === false;
+  });
   activeArray = arrayOfStudents;
   filterStudents();
 }
@@ -203,7 +207,7 @@ function expelStudent(studentId) {
 function joinInSq(StudentId) {
   console.log("joinInSq");
 
-  let objIndex = arrayOfStudents.findIndex(obj => obj.id == StudentId);
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id === StudentId);
   let inSquadStudent = arrayOfStudents[objIndex];
 
   if (
@@ -223,7 +227,7 @@ function joinInSq(StudentId) {
 function exitInSq(StudentId) {
   console.log("exitInSq");
 
-  let objIndex = arrayOfStudents.findIndex(obj => obj.id == StudentId);
+  let objIndex = arrayOfStudents.findIndex(obj => obj.id === StudentId);
   let inSquadStudent = arrayOfStudents[objIndex];
   arrayOfInSquad.splice(inSquadStudent);
   arrayOfStudents[objIndex].inSquad = false;
@@ -377,10 +381,9 @@ function displayStudents() {
 
   activeArray.forEach(student => {
     let clone = template.content.cloneNode(true);
-    studentId = student.id;
 
     clone.querySelector(".student_name").addEventListener("click", () => {
-      showModal(student, studentId);
+      showModal(student);
     });
 
     clone.querySelector("[data-firstname]").textContent = student.firstName;
@@ -391,7 +394,7 @@ function displayStudents() {
 
     if (showexpelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
-        expelStudent(studentId);
+        expelStudent(student.id);
       });
     } else {
       clone.querySelector(".expel").remove();
@@ -401,7 +404,7 @@ function displayStudents() {
   countStudents();
 }
 
-function showModal(student, studentId) {
+function showModal(student) {
   console.log("showModal");
 
   modal.classList.add("show");
@@ -418,7 +421,8 @@ function showModal(student, studentId) {
 
   if (showexpelled === false) {
     modal.querySelector(".expel").addEventListener("click", () => {
-      expelStudent(studentId);
+      activeId = student.id;
+      expelStudent(activeId);
       hideModal();
     });
   } else {
@@ -430,16 +434,16 @@ function showModal(student, studentId) {
   if (student.inSquad === false) {
     modal.querySelector(".insquad").textContent = "Join InSquad";
     modal.querySelector(".insquad").addEventListener("click", () => {
-      modal.querySelector(".insquad").removeEventListener("click", this);
-      joinInSq(studentId);
+      // modal.querySelector(".insquad").removeEventListener("click", this);
+      joinInSq(student.id);
       hideModal();
     });
   }
   if (student.inSquad === true) {
     modal.querySelector(".insquad").textContent = "Exit InSquad";
-    modal.querySelector(".insquad").removeEventListener("click", this);
+    // modal.querySelector(".insquad").removeEventListener("click", this);
     modal.querySelector(".insquad").addEventListener("click", () => {
-      exitInSq(studentId);
+      exitInSq(student.id);
       hideModal();
     });
   }
@@ -484,6 +488,9 @@ function countStudents() {
 
   const countExpelled = arrayOfExpelled.length;
   document.querySelector("#expelled_counter").textContent = countExpelled;
+  console.log("arrayOfExpelled");
   console.log(arrayOfExpelled);
+  console.log("arrayOfInSquad");
   console.log(arrayOfInSquad);
+  console.log("activeId" + activeId);
 }
