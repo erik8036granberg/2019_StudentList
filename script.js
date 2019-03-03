@@ -451,16 +451,14 @@ function displayModal(StudentId) {
       if (student.inSquad === false) {
         clone.querySelector(".insquad").textContent = "Join InSquad";
         clone.querySelector(".insquad").addEventListener("click", () => {
-          clone.querySelector(".insquad").removeEventListener("click", this);
-          joinInSq(studentId);
+          joinInSq(ActiveId);
           hideModal();
         });
       }
       if (student.inSquad === true) {
         clone.querySelector(".insquad").textContent = "Exit InSquad";
-        clone.querySelector(".insquad").removeEventListener("click", this);
         clone.querySelector(".insquad").addEventListener("click", () => {
-          exitInSq(studentId);
+          exitInSq(ActiveId);
           hideModal();
         });
       }
