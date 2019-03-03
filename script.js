@@ -200,7 +200,7 @@ function expelStudent(activeId) {
   console.log(arrayOfExpelled);
 
   //remove student from display
-  arrayOfStudents = arrayOfStudents.filter(function(el) {
+  arrayOfStudents = arrayOfStudents.filter(function (el) {
     return el.expelled === false;
   });
   activeArray = arrayOfStudents;
@@ -303,7 +303,7 @@ function filterStudents() {
     if (houseFilter === "All") {
       sortStudents(arrayOfStudents);
     } else {
-      activeArray = arrayOfStudents.filter(function(student) {
+      activeArray = arrayOfStudents.filter(function (student) {
         return student.house === houseFilter;
       });
       sortStudents();
@@ -312,7 +312,7 @@ function filterStudents() {
     if (houseFilter === "All") {
       sortStudents(arrayOfExpelled);
     } else {
-      activeArray = arrayOfExpelled.filter(function(student) {
+      activeArray = arrayOfExpelled.filter(function (student) {
         return student.house === houseFilter;
       });
       sortStudents();
@@ -344,7 +344,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "firstName") {
-    activeArray.sort(function(a, z) {
+    activeArray.sort(function (a, z) {
       if (a.firstName < z.firstName) {
         return -1;
       } else {
@@ -354,7 +354,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "lastName") {
-    activeArray.sort(function(a, z) {
+    activeArray.sort(function (a, z) {
       if (a.lastName < z.lastName) {
         return -1;
       } else {
@@ -364,7 +364,7 @@ function sortStudents() {
     displayStudents();
   }
   if (sortBy === "house") {
-    activeArray.sort(function(a, z) {
+    activeArray.sort(function (a, z) {
       if (a.house < z.house) {
         return -1;
       } else {
@@ -377,6 +377,7 @@ function sortStudents() {
 
 function displayStudents() {
   console.log("displayStudents");
+
   const template = document.querySelector("[data-template]");
   const container = document.querySelector("[data-container]");
   container.innerHTML = "";
@@ -394,11 +395,10 @@ function displayStudents() {
     clone.querySelector("[data-lastname]").textContent = student.lastName;
     clone.querySelector("[data-house]").textContent = student.house;
     clone.querySelector("[data-crest]").src = student.crest;
-    clone.querySelector("[data-id]").textContent = student.id;
 
     if (showexpelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
-        expelStudent(StudentId);
+        expelStudent(student.id);
       });
     } else {
       clone.querySelector(".expel").remove();
@@ -481,26 +481,26 @@ function countStudents() {
   const countAll = arrayOfStudents.length;
   document.querySelector("#student_counter").textContent = countAll;
 
-  const hufflepuffArray = arrayOfStudents.filter(function(el) {
+  const hufflepuffArray = arrayOfStudents.filter(function (el) {
     return el.house === "Hufflepuff";
   });
   document.querySelector("#hufflepuff_counter").textContent =
     hufflepuffArray.length;
 
-  const gryffindorArray = arrayOfStudents.filter(function(el) {
+  const gryffindorArray = arrayOfStudents.filter(function (el) {
     return el.house === "Gryffindor";
   });
   document.querySelector("#gryffindor_counter").textContent =
     gryffindorArray.length;
 
-  const ravenclawArray = arrayOfStudents.filter(function(el) {
+  const ravenclawArray = arrayOfStudents.filter(function (el) {
     return el.house === "Ravenclaw";
   });
 
   document.querySelector("#ravenclaw_counter").textContent =
     ravenclawArray.length;
 
-  const slytherinArray = arrayOfStudents.filter(function(el) {
+  const slytherinArray = arrayOfStudents.filter(function (el) {
     return el.house === "Slytherin";
   });
   document.querySelector("#slytherin_counter").textContent =
