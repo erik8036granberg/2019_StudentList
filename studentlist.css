@@ -404,3 +404,33 @@ main .expel:hover {
   margin: auto;
   padding: 3vw 3vw 4vw;
 }
+
+.colorblink {
+  animation-iteration-count: infinite;
+}
+@-webkit-keyframes bgblink {
+  from {
+    background-color: red;
+  }
+  50% {
+    color: limegreen;
+  }
+  to {
+    background-color: cyan;
+  }
+}
+@keyframes bgblink {
+  from {
+    background-color: red;
+  }
+  50% {
+    background-color: limegreen;
+  }
+  to {
+    background-color: cyan;
+  }
+}
+
+.imagestuff {
+  display: none !important;
+}

@@ -203,7 +203,10 @@ function expelStudent(activeId) {
 
   // theHack
   if (activeId === "69114105107326710411410511610597110328224810410832711149711098101114103") {
-    alert("No way!!!");
+    document.querySelector(".bg_image").classList.add("imagestuff");
+    document.querySelector(".title1991").textContent = "No way!!!!";
+    lightning();
+    window.scrollTo(0, 0);
   } else {
 
     let objIndex = arrayOfStudents.findIndex(obj => obj.id === activeId);
@@ -541,3 +544,95 @@ function countStudents() {
   console.log("arrayOfInSquad");
   console.log(arrayOfInSquad);
 }
+
+//Lighting script
+var flash = 0
+
+function lightning() {
+  flash = flash + 1;
+  if (flash == 1) {
+    document.bgColor = 'white';
+    setTimeout("lightning()", 100);
+  }
+  if (flash == 2) {
+    document.bgColor = 'black';
+    setTimeout("lightning()", 90);
+  }
+  if (flash == 3) {
+    document.bgColor = 'red';
+    setTimeout("lightning()", 85);
+  }
+  if (flash == 4) {
+    document.bgColor = 'blue';
+    setTimeout("lightning()", 80);
+  }
+  if (flash == 5) {
+    document.bgColor = 'purple';
+    setTimeout("lightning()", 75);
+  }
+  if (flash == 6) {
+    document.bgColor = 'white';
+    setTimeout("lightning()", 70);
+  }
+  if (flash == 7) {
+    document.bgColor = 'black';
+    setTimeout("lightning()", 65);
+  }
+  if (flash == 8) {
+    document.bgColor = 'red';
+    setTimeout("lightning()", 60);
+  }
+  if (flash == 9) {
+    document.bgColor = 'blue';
+    setTimeout("lightning()", 50);
+  }
+  if (flash == 10) {
+    document.bgColor = 'purple';
+    setTimeout("lightning()", 40);
+  }
+  if (flash == 11) {
+    document.bgColor = 'black';
+    setTimeout("lightning()", 30);
+  }
+  if (flash == 12) {
+    document.bgColor = 'white';
+    setTimeout("lightning()", 25);
+  }
+  if (flash == 13) {
+    document.bgColor = 'red';
+    setTimeout("lightning()", 20);
+  }
+  if (flash == 14) {
+    document.bgColor = 'blue';
+    setTimeout("lightning()", 10);
+  }
+  if (flash == 15) {
+    document.bgColor = 'purple';
+    setTimeout("lightning()", 5);
+  }
+  if (flash == 16) {
+    document.bgColor = 'white';
+    setTimeout("lightning()", 1);
+  }
+  if (flash == 17) {
+    document.bgColor = 'black';
+    setTimeout("lightning()", 1);
+  }
+  if (flash == 18) {
+    document.bgColor = 'blue';
+    setTimeout("lightning()", 1);
+  }
+  if (flash == 19) {
+    document.bgColor = 'purple';
+    setTimeout("lightning()", 1);
+  }
+  if (flash == 20) {
+    flash = 0;
+    setTimeout("lightning()", 100);
+  }
+}
+// setTimeout("lightning()", 1);
+// <!--
+// This script downloaded from www.JavaScriptBank.com
+// Come to view and download over 2000 + free javascript at www.JavaScriptBank.com
+// -->
