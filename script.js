@@ -386,7 +386,7 @@ function displayStudents() {
 
     clone.querySelector(".student_name").addEventListener("click", () => {
       displayModal(student.id);
-      document.querySelector("#modal").classList.add("show");
+      console.log("Display - sendt id er: " + student.id);
     });
 
     clone.querySelector("[data-firstname]").textContent = student.firstName;
@@ -398,7 +398,7 @@ function displayStudents() {
 
     if (showexpelled === false) {
       clone.querySelector(".expel").addEventListener("click", () => {
-        expelStudent(student.id);
+        expelStudent(StudentId);
       });
     } else {
       clone.querySelector(".expel").remove();
@@ -410,6 +410,12 @@ function displayStudents() {
 
 function displayModal(StudentId) {
   console.log("displayModal");
+  console.log("Modal - modtaget id er: " + StudentId);
+
+  let ActiveId = StudentId;
+
+  document.querySelector("#modal").classList.add("show");
+
   const modalTemplate = document.querySelector("[data-modalTemplate]");
   const modalContainer = document.querySelector("[data-modalContainer]");
   modalContainer.innerHTML = "";
@@ -417,22 +423,47 @@ function displayModal(StudentId) {
   activeArray.forEach(student => {
     let clone = modalTemplate.content.cloneNode(true);
 
-    if (student.id === StudentId) {
-      clone.querySelector("[data-firstname]").textContent = student.firstName;
-      clone.querySelector("[data-middlename]").textContent = student.middleName;
-      clone.querySelector("[data-lastname]").textContent = student.lastName;
-      clone.querySelector("[data-house]").textContent = student.house;
-      clone.querySelector("[data-crest]").src = student.crest;
-      clone.querySelector("[data-id]").textContent = student.id;
+    if (student.id === ActiveId) {
+      clone.querySelector("#closemodal").addEventListener("click", hideModal);
+      clone.querySelector("[data-modalfirstname]").textContent =
+        student.firstName;
+      clone.querySelector("[data-modalmiddlename]").textContent =
+        student.middleName;
+      clone.querySelector("[data-modallastname]").textContent =
+        student.lastName;
+      clone.querySelector("[data-modalhouse]").textContent = student.house;
+      clone.querySelector("[data-modalcrest]").src = student.crest;
 
-      if (showexpelled === false) {
-        clone.querySelector(".expel").addEventListener("click", () => {
-          expelStudent(student.id);
+      clone.querySelector("[data-modalimage]").src = student.image;
+
+      if (student.expelled === false) {
+        clone.querySelector(".modalexpel").addEventListener("click", () => {
+          expelStudent(ActiveId);
+          hideModal();
         });
       } else {
-        clone.querySelector(".expel").remove();
+        clone.querySelector(".modalExpel").remove();
       }
 
+      clone.querySelector("[data-modalbloodstatus]").textContent =
+        student.bloodstatus;
+
+      if (student.inSquad === false) {
+        clone.querySelector(".insquad").textContent = "Join InSquad";
+        clone.querySelector(".insquad").addEventListener("click", () => {
+          clone.querySelector(".insquad").removeEventListener("click", this);
+          joinInSq(studentId);
+          hideModal();
+        });
+      }
+      if (student.inSquad === true) {
+        clone.querySelector(".insquad").textContent = "Exit InSquad";
+        clone.querySelector(".insquad").removeEventListener("click", this);
+        clone.querySelector(".insquad").addEventListener("click", () => {
+          exitInSq(studentId);
+          hideModal();
+        });
+      }
       modalContainer.appendChild(clone);
     }
   });

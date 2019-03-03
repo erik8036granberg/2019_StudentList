@@ -309,6 +309,7 @@ main .expel:hover {
   position: absolute;
   top: 1rem;
   right: 2rem;
+  z-index: 999;
 }
 
 #modal #closemodal:hover {
@@ -317,7 +318,7 @@ main .expel:hover {
   transform: scale(1.2);
 }
 
-#modal .expel,
+#modal .modalexpel,
 #modal .insquad {
   display: inline-block;
   width: 10rem;
@@ -330,7 +331,7 @@ main .expel:hover {
   transition: 0.5s;
 }
 
-#modal .expel:hover,
+#modal .modalexpel:hover,
 #modal .insquad:hover {
   background-color: var(--font-blue_hover);
   cursor: pointer;

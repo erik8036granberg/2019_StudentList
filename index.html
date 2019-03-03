@@ -15,6 +15,7 @@
 <body>
   <div id="modal">
     <div id="modal-content" data-modalContainer>
+      <div class="modalContainer" data-modalContainer></div>
     </div>
   </div>
   <div class="bg_image"></div>
@@ -73,15 +74,26 @@
   </template>
 
   <template data-modalTemplate>
+    <div id="closemodal">&#10006;</div>
     <div class="student">
-      <div class="student_name">
-        <h2><span data-firstname></span><span data-middlename></span><span data-lastname></span></h2>
-        <p class="house" data-house></p>
+      <div>
+        <img src="" alt="" class="image" data-modalimage>
+        <h2><span data-modalfirstname></span><span data-modalmiddlename></span><span data-modallastname></span></h2>
+        <p class="house" data-modalhouse></p>
+        <p class="bloodstatus" data-modalbloodstatus></p>
       </div>
-      <img src="" alt="" class="crest" data-crest>
-      <div class="expel">Expel</div>
-      <p class="id" data-id></p>
+      <div>
+        <img src="" alt="" class="crest" data-modalcrest>
+      </div>
+      <div class="status">
+        <div class="Studentstatus" data-modalbloodstatus></div>
+        <div class="modalexpel">Expel</div>
+      </div>
+      <div>
+        <div class="insquad">Join InSquad</div>
+      </div>
     </div>
+
   </template>
 
   <script src="script.js"></script>
