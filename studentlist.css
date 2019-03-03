@@ -235,6 +235,13 @@ main .expel:hover {
   padding: 0 0.5rem 0;
 }
 
+#insquad_counter::before {
+  content: "In-Squad students: ";
+  padding: 0 0.5rem 0;
+}
+
+
+
 #modal {
   position: absolute;
   width: 100vw;

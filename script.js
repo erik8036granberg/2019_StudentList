@@ -506,6 +506,10 @@ function countStudents() {
 
   const countExpelled = arrayOfExpelled.length;
   document.querySelector("#expelled_counter").textContent = countExpelled;
+
+  const countInSquad = arrayOfInSquad.length;
+  document.querySelector("#insquad_counter").textContent = countInSquad;
+
   console.log("arrayOfExpelled");
   console.log(arrayOfExpelled);
   console.log("arrayOfInSquad");
