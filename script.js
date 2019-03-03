@@ -76,12 +76,15 @@ async function getJson() {
   console.log("getJson");
   let Json = await fetch("students.json");
   let students = await Json.json();
+
+  // The Hack is here
   let theHack = {
     fullname: "Erik Chritian Røhl Granberg",
     house: "Gryffindor",
     image: "img/granberg_e.png"
   };
   students.push(theHack);
+
   getJsonFam(students);
 }
 
@@ -148,6 +151,18 @@ function corrrectNames() {
   arrayOfStudents.forEach(student => {
     let nameCorrect = student.image;
 
+    // Bloodhack is here!
+    if (student.bloodstatus === "Halfblood" || student.bloodstatus === "Muggleblood") {
+      student.bloodstatus = "Pureblood";
+    } else {
+      let randomStuff = Math.random();
+      if (randomStuff > 0.5) {
+        student.bloodstatus = "Half-blood";
+      } else {
+        student.bloodstatus = "Muggleblood";
+      }
+    }
+
     if (student.image === "images/granberg_e.png") {
       student.image = "img/granberg_e.png";
     }
@@ -201,7 +216,7 @@ function makeId(input) {
 function expelStudent(activeId) {
   console.log("expelStudent");
 
-  // theHack
+  // theHack don't expel me!
   if (activeId === "69114105107326710411410511610597110328224810410832711149711098101114103") {
     document.querySelector(".bg_image").classList.add("imagestuff");
     document.querySelector(".title1991").textContent = "No way!!!!";
