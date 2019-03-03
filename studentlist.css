@@ -214,35 +214,36 @@ main .expel:hover {
 }
 
 .hufflepuffbg {
-  background-color: var(--hufflepuff) !important;
+  background-color: var(--hufflepuff);
+  color: #000;
 }
 
 .gryffindorbg {
-  background-color: var(--gryffindor) !important;
+  background-color: var(--gryffindor);
 }
 
 .slytherinbg {
-  background-color: var(--slytherin) !important;
+  background-color: var(--slytherin);
 }
 
 .ravenclawbg {
-  background-color: var(--ravenclaw) !important;
+  background-color: var(--ravenclaw);
 }
 
 .hufflepuffbg:hover {
-  background-color: var(--hufflepuff_hover) !important;
+  background-color: var(--hufflepuff_hover);
 }
 
 .gryffindorbg:hover {
-  background-color: var(--gryffindor_hover) !important;
+  background-color: var(--gryffindor_hover);
 }
 
 .slytherinbg:hover {
-  background-color: var(--slytherin_hover) !important;
+  background-color: var(--slytherin_hover);
 }
 
 .ravenclawbg:hover {
-  background-color: var(--ravenclaw_hover) !important;
+  background-color: var(--ravenclaw_hover);
 }
 
 #student_counter {
@@ -370,7 +371,6 @@ main .expel:hover {
   display: inline-block;
   width: 10rem;
   position: relative;
-  background-color: var(--font-blue);
   margin: 2;
   margin-bottom: 2.7rem;
   padding: 0.5rem;
@@ -380,7 +380,6 @@ main .expel:hover {
 
 #modal .modalexpel:hover,
 #modal .insquad:hover {
-  background-color: var(--font-blue_hover);
   cursor: pointer;
 }
 

@@ -76,6 +76,12 @@ async function getJson() {
   console.log("getJson");
   let Json = await fetch("students.json");
   let students = await Json.json();
+  let theHack = {
+    fullname: "Erik Chritian Røhl Granberg",
+    house: "Gryffindor",
+    image: "img/granberg_e.png"
+  };
+  students.push(theHack);
   getJsonFam(students);
 }
 
@@ -141,6 +147,10 @@ function corrrectNames() {
   console.log("corrrectNames");
   arrayOfStudents.forEach(student => {
     let nameCorrect = student.image;
+
+    if (student.image === "images/granberg_e.png") {
+      student.image = "img/granberg_e.png";
+    }
 
     if (student.lastName === "Macmillian") {
       student.image = "images/macmillan_e.png";
@@ -447,6 +457,10 @@ function displayModal(StudentId) {
 
       clone.querySelector("[data-modalbloodstatus]").textContent =
         student.bloodstatus;
+
+      // if (student.inSquad === true) {
+      //   clone.querySelector("[data-insquad]").textContent = " - In-Squad";
+      // }
 
       if (student.inSquad === false) {
         clone.querySelector(".insquad").textContent = "Join InSquad";
