@@ -200,21 +200,25 @@ function makeId(input) {
 
 function expelStudent(activeId) {
   console.log("expelStudent");
-  //set expel-status to true
-  let objIndex = arrayOfStudents.findIndex(obj => obj.id === activeId);
-  arrayOfStudents[objIndex].expelled = true;
-  let expelledStudent = arrayOfStudents[objIndex];
-  arrayOfExpelled.unshift(expelledStudent);
-  // arrayOfStudents.splice(objIndex, 1);
 
-  console.log(arrayOfExpelled);
+  // theHack
+  if (activeId === "69114105107326710411410511610597110328224810410832711149711098101114103") {
+    alert("No way!!!");
+  } else {
 
-  //remove student from display
-  arrayOfStudents = arrayOfStudents.filter(function (el) {
-    return el.expelled === false;
-  });
-  activeArray = arrayOfStudents;
-  filterStudents();
+    let objIndex = arrayOfStudents.findIndex(obj => obj.id === activeId);
+    arrayOfStudents[objIndex].expelled = true;
+    let expelledStudent = arrayOfStudents[objIndex];
+    arrayOfExpelled.unshift(expelledStudent);
+
+    console.log(arrayOfExpelled);
+
+    arrayOfStudents = arrayOfStudents.filter(function (el) {
+      return el.expelled === false;
+    });
+    activeArray = arrayOfStudents;
+    filterStudents();
+  }
 }
 
 function joinInSq(StudentId) {
