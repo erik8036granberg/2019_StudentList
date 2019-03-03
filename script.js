@@ -84,7 +84,6 @@ async function getJson() {
     image: "img/granberg_e.png"
   };
   students.push(theHack);
-
   getJsonFam(students);
 }
 
@@ -104,10 +103,10 @@ function studentObject(students, families) {
     student.setJSONdata(studentData);
     arrayOfStudents.push(student);
   });
+  activeArray = arrayOfStudents;
   getHalfBloods(families);
   getPureBloods(families);
   setMuggleBloods();
-  activeArray = arrayOfStudents;
   corrrectNames();
 }
 
@@ -300,7 +299,6 @@ function expelledButton() {
   document.querySelector("#expelled").classList.add("statuson");
   document.querySelector("#enrolled").classList.remove("statuson");
   document.querySelector("#enrolled").classList.add("statusoff");
-
   filterStudents();
 }
 
@@ -490,10 +488,6 @@ function displayModal(StudentId) {
 
       clone.querySelector("[data-modalbloodstatus]").textContent =
         student.bloodstatus;
-
-      // if (student.inSquad === true) {
-      //   clone.querySelector("[data-insquad]").textContent = " - In-Squad";
-      // }
 
       if (student.inSquad === false) {
         clone.querySelector(".insquad").textContent = "Join InSquad";
