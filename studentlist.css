@@ -5,10 +5,15 @@
 
 :root {
   /* house colors */
-  --hufflepuff: rgba(217, 208, 56, 0.25);
-  --gryffindor: rgba(151, 9, 23, 0.3);
-  --slytherin: rgba(44, 124, 27, 0.25);
-  --ravenclaw: rgba(25, 87, 147, 0.25);
+  --hufflepuff: rgba(217, 208, 56, 0.75);
+  --gryffindor: rgba(151, 9, 23, 0.75);
+  --slytherin: rgba(44, 124, 27, 0.75);
+  --ravenclaw: rgba(25, 87, 147, 0.75);
+  --background: rgba(0, 0, 0, 0.9);
+  --hufflepuff_hover: rgba(247, 238, 74, 0.3);
+  --gryffindor_hover: rgba(151, 9, 23, 0.3);
+  --slytherin_hover: rgba(44, 124, 27, 0.3);
+  --ravenclaw_hover: rgba(25, 87, 147, 0.3);
   --background: rgba(0, 0, 0, 0.9);
   --font-blue: rgba(0, 150, 180, 1);
   --font-blue_hover: rgba(0, 150, 180, 0.5);
@@ -57,7 +62,6 @@ body {
   padding: 2vw 2vw 0vw 2vw;
 }
 
-
 nav {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -101,7 +105,7 @@ nav .statuson {
 }
 
 h1 {
-  font-family: 'Viga', sans-serif;
+  font-family: "Viga", sans-serif;
   font-size: 5rem;
   position: absolute;
   text-align: center;
@@ -186,19 +190,59 @@ main .expel:hover {
 /* Styles for adding colors and crests to different houses in js */
 
 .hufflepuff {
-  background-color: var(--hufflepuff);
+  border-color: var(--hufflepuff);
+  border-style: solid;
+  border-width: 10px;
 }
 
 .gryffindor {
-  background-color: var(--gryffindor);
+  border-color: var(--gryffindor);
+  border-style: solid;
+  border-width: 10px;
 }
 
 .slytherin {
-  background-color: var(--slytherin);
+  border-color: var(--slytherin);
+  border-style: solid;
+  border-width: 10px;
 }
 
 .ravenclaw {
-  background-color: var(--ravenclaw);
+  border-color: var(--ravenclaw);
+  border-style: solid;
+  border-width: 10px;
+}
+
+.hufflepuffbg {
+  background-color: var(--hufflepuff) !important;
+}
+
+.gryffindorbg {
+  background-color: var(--gryffindor) !important;
+}
+
+.slytherinbg {
+  background-color: var(--slytherin) !important;
+}
+
+.ravenclawbg {
+  background-color: var(--ravenclaw) !important;
+}
+
+.hufflepuffbg:hover {
+  background-color: var(--hufflepuff_hover) !important;
+}
+
+.gryffindorbg:hover {
+  background-color: var(--gryffindor_hover) !important;
+}
+
+.slytherinbg:hover {
+  background-color: var(--slytherin_hover) !important;
+}
+
+.ravenclawbg:hover {
+  background-color: var(--ravenclaw_hover) !important;
 }
 
 #student_counter {
@@ -240,8 +284,6 @@ main .expel:hover {
   padding: 0 0.5rem 0;
 }
 
-
-
 #modal {
   position: absolute;
   width: 100vw;
@@ -273,15 +315,11 @@ main .expel:hover {
   min-width: 25vw;
   max-width: 70vw;
   background-color: rgb(0, 0, 0);
-  margin: auto;
-  padding: 3vw 3vw 4vw;
-  margin: 0 0 2vw;
 }
 
 #modal .status {
   grid-column: 1/2;
   color: #ffffff;
-  background-color: red,
 }
 
 #modal .student {
@@ -304,6 +342,8 @@ main .expel:hover {
   border-radius: 0.5rem;
   z-index: 100;
   grid-column: 1/2;
+  margin: 0 0 0 2rem;
+  border: solid 2px #ffffff;
 }
 
 #modal .image {
@@ -359,4 +399,9 @@ main .expel:hover {
 
 .hide {
   display: none;
+}
+
+#house_bg {
+  margin: auto;
+  padding: 3vw 3vw 4vw;
 }

@@ -462,6 +462,14 @@ function displayModal(StudentId) {
           hideModal();
         });
       }
+
+      let houseColor = student.house.toLowerCase();
+      console.log(houseColor);
+      clone.querySelector(".modalexpel").classList.add(houseColor + "bg");
+      clone.querySelector(".insquad").classList.add(houseColor + "bg");
+      clone.querySelector("#house_bg").classList.add(houseColor);
+
+
       modalContainer.appendChild(clone);
     }
   });

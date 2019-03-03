@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="This is my student list for the 09C-1.01.01 submition on feb 6th 2019.">
+  <meta name="description" content="This is my --hacked-- list.">
   <title>Student List hacked</title>
   <link rel="stylesheet" href="studentlist.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Shojumaru" rel="stylesheet">
@@ -75,25 +75,27 @@
 
   <template data-modalTemplate>
     <div id="closemodal">&#10006;</div>
-    <div class="student">
-      <div>
-        <img src="" alt="" class="image" data-modalimage>
-        <h2><span data-modalfirstname></span><span data-modalmiddlename></span><span data-modallastname></span></h2>
-        <p class="house" data-modalhouse></p>
-        <p class="bloodstatus" data-modalbloodstatus></p>
+    <div id="house_bg">
+      <div class="student">
+        <div>
+          <img src="" alt="" class="image" data-modalimage>
+          <h2><span data-modalfirstname></span><span data-modalmiddlename></span><span data-modallastname></span></h2>
+          <p class="house" data-modalhouse></p>
+          <p class="bloodstatus" data-modalbloodstatus></p>
+        </div>
+        <div>
+          <img src="" alt="" class="crest" data-modalcrest>
+        </div>
+        <div class="status">
+          <div class="Studentstatus" data-modalbloodstatus></div>
+          <div class="modalexpel">Expel</div>
+        </div>
+        <div>
+          <div class="insquad">Join InSquad</div>
+        </div>
       </div>
-      <div>
-        <img src="" alt="" class="crest" data-modalcrest>
-      </div>
-      <div class="status">
-        <div class="Studentstatus" data-modalbloodstatus></div>
-        <div class="modalexpel">Expel</div>
-      </div>
-      <div>
-        <div class="insquad">Join InSquad</div>
-      </div>
-    </div>
 
+    </div>
   </template>
 
   <script src="script.js"></script>
